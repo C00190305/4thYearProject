@@ -2,6 +2,8 @@
 #ifndef GRID_H
 #define GRID_H
 
+#include <vector>
+
 #include "Tile.h"
 
 class Grid
@@ -14,7 +16,6 @@ public:
 private:
 	int m_width;
 	int m_height;	
-	Tile tileArray; //2D array of tiles.
 };
 
 #endif // !GRID_H
