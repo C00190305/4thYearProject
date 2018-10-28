@@ -18,6 +18,9 @@ public:
 private:
 	sf::Vector2f m_pos;
 	Grid* m_grid;
+	float chanceToChangeDirection;
+	float chanceToDestroy;
+	float chanceToSpawnNewAgent;
 };
 
 #endif

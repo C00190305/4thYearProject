@@ -10,12 +10,16 @@ class Grid
 {
 public:
 	Grid();
-
+	Tile** getTileArray();
+	int getWidth();
+	int getHeight();
 	//Width and height in number of tiles.
-	Grid(int width, int height);
+	Grid(const int &width, const int &height, const std::string &tileType);
 private:
 	int m_width;
 	int m_height;	
+	Tile** m_tileArray;
+	std::vector<std::vector<Tile>> m_tileVector;
 };
 
 #endif // !GRID_H

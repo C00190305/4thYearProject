@@ -4,6 +4,8 @@
 #include <iostream>
 
 #include "Tile.h"
+#include "Grid.h"
+
 void buttonPressed()
 {
 	std::cout << "Button pressed" << std::endl;
@@ -19,6 +21,10 @@ int main()
 	button->setPosition((window->getSize().x / 2) - 150, (window->getSize().y / 2) - 25);
 	gui.add(button);
 	button->connect("Pressed", buttonPressed);
+
+	Grid* g = new Grid(32, 32, "wall");
+	
+
 	while (window->isOpen())
 	{
 		sf::Event event;
@@ -40,6 +46,15 @@ int main()
 		
 
 		window->clear();
+
+		for (int i = 0; i < g->getWidth(); i++)
+		{
+			for (int j = 0; j < g->getHeight(); j++)
+			{
+				g->getTileArray()[i][j].draw(*window);
+			}
+		}
+
 		gui.draw();
 		t.draw(*window);
 		window->display();
