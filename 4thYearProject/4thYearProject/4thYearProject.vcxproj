@@ -123,15 +123,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FloorTile.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RandomWalkAgent.h" />
+    <ClInclude Include="FloorTile.h" />
+    <ClInclude Include="RandomWalker.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="RandomWalkGenerator.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="WallTile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

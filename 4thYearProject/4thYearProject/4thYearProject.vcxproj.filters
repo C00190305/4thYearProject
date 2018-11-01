@@ -24,6 +24,9 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FloorTile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tile.h">
@@ -35,7 +38,16 @@
     <ClInclude Include="Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RandomWalkAgent.h">
+    <ClInclude Include="RandomWalkGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorTile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WallTile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomWalker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

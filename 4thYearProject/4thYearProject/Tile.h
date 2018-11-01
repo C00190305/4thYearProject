@@ -9,12 +9,14 @@ class Tile
 public:
 	Tile();
 	Tile(const std::string &tileID);
-	void draw(sf::RenderWindow &window);
-private:
+	virtual void draw(sf::RenderWindow &window);
+protected:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
 	sf::Vector2f m_pos;
 	std::string m_ID;
+	int m_width;
+	int m_height;
 };
 
 

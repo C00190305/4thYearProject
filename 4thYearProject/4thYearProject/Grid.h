@@ -10,7 +10,7 @@ class Grid
 {
 public:
 	Grid();
-	Tile** getTileArray();
+	void draw(sf::RenderWindow &window);
 	int getWidth();
 	int getHeight();
 	//Width and height in number of tiles.
