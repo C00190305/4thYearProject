@@ -4,8 +4,11 @@
 
 #include <vector>
 #include <list>
+#include <algorithm>
 
 #include "Tile.h"
+#include "FloorTile.h"
+#include "WallTile.h"
 #include "RandomWalker.h"
 #include <Thor/Math.hpp>
 
@@ -26,7 +29,7 @@ private:
 		wall
 	};
 
-	Tile** m_tileArray;
+	Tile*** m_tileArray;
 	int m_width, m_height;
 	GridSpace** m_gridSpace;
 	std::list<RandomWalker*> m_walkers;
@@ -40,6 +43,8 @@ private:
 	void spawnNewWalker();
 	void destroyWalker();
 	void calculateNewDirection();
+	int numberOfFloorsInGrid();
+	void createTileArray();
 };
 
 #endif // !RANDOMWALKGENERATOR_H

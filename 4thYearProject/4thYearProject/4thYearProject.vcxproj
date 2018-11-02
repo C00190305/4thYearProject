@@ -80,6 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\DevTools\SFML-2.5.1\include;C:\DevTools\TGUI\include;C:\DevTools\thor\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\DevTools\SFML-2.5.1\lib;C:\DevTools\TGUI\lib;C:\DevTools\thor\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -129,6 +130,7 @@
     <ClCompile Include="RandomWalker.cpp" />
     <ClCompile Include="RandomWalkGenerator.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="WallTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FloorTile.h" />

@@ -24,6 +24,7 @@ int main()
 	button->connect("Pressed", buttonPressed);	
 
 	RandomWalkGenerator m_level(60, 60);
+	m_level.generate();
 
 	while (window->isOpen())
 	{
@@ -49,6 +50,7 @@ int main()
 
 		gui.draw();
 		t.draw(*window);
+		m_level.draw(*window);
 		window->display();
 	}
 

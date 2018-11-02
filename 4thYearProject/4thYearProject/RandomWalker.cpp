@@ -37,3 +37,8 @@ sf::Vector2i RandomWalker::getPosition()
 {
 	return m_pos;
 }
+
+void RandomWalker::move()
+{
+	m_pos += m_direction;
+}

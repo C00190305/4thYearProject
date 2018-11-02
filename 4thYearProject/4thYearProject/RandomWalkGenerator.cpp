@@ -11,13 +11,20 @@ RandomWalkGenerator::RandomWalkGenerator()
 RandomWalkGenerator::RandomWalkGenerator(int width, int height) : m_width(width), m_height(height)
 {
 	//Add the original walker to the vector
-	m_walkers.push_back(new RandomWalker(sf::Vector2i(thor::random(m_width, m_height), thor::random(m_width, m_height))));
+	m_walkers.push_back(new RandomWalker(sf::Vector2i(thor::random(0, m_width), thor::random(0, m_height))));
 	
 	//Dynamically allocate 2d array of gridspaces.
 	m_gridSpace = new GridSpace*[m_width];
 	for (int i = 0; i < m_width; i++)
 	{
 		m_gridSpace[i] = new GridSpace[m_height];
+	}
+
+	//Dynamically allocate 2d array of Tile objects.
+	m_tileArray = new Tile**[m_width];
+	for (int i = 0; i < m_width; i++)
+	{
+		m_tileArray[i] = new Tile*[m_height];
 	}
 
 	//Initialize gridspace as entirely empty cells.
@@ -46,6 +53,27 @@ void RandomWalkGenerator::generate()
 
 		destroyWalker();
 		spawnNewWalker();
+		calculateNewDirection();
+
+		//Move each walker
+		for (auto walker : m_walkers)
+		{
+			//Clamp the position value so it cannot go outside of the bounds of the level
+			std::clamp(walker->getPosition().x, 1, m_width - 2);
+			std::clamp(walker->getPosition().y, 1, m_height - 2);
+
+			//move each walker
+			walker->move();
+		}
+
+		if ((float)(numberOfFloorsInGrid() / (float)(m_width * m_height)) > FILL_PERCENTAGE)
+		{
+			break;
+		}
+
+		iterations++;
+
+		
 
 	} while (iterations < 50);
 }
@@ -79,6 +107,53 @@ void RandomWalkGenerator::calculateNewDirection()
 	std::list<RandomWalker*>::iterator iter;
 	for (iter = m_walkers.begin(); iter != m_walkers.end(); ++iter)
 	{
-		iter
+		(*iter)->getDirection();
+	}
+}
+
+int RandomWalkGenerator::numberOfFloorsInGrid()
+{
+	int count = 0;
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			if (m_gridSpace[i][j] == GridSpace::floor)
+			{
+				count++;
+			}
+		}
+	}
+	return count;
+}
+
+void RandomWalkGenerator::createTileArray()
+{
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			switch (m_gridSpace[i][j])
+			{
+			case GridSpace::empty:
+				break;
+			case GridSpace::wall:
+				m_tileArray[i][j] = new WallTile(i, j);
+				break;
+			case GridSpace::floor:
+				m_tileArray[i][j] = new FloorTile(i, j);
+			}
+		}
+	}
+}
+
+void RandomWalkGenerator::draw(sf::RenderWindow &window)
+{
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			m_tileArray[i][j]->draw(window);
+		}
 	}
 }

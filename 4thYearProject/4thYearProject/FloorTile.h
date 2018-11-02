@@ -9,6 +9,7 @@ class FloorTile : public Tile
 {
 public:
 	FloorTile();
+	FloorTile(int x, int y);
 	void draw(sf::RenderWindow &window);
 private:
 

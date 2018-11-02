@@ -13,16 +13,15 @@ class RandomWalker
 {
 public:
 	RandomWalker();
-	RandomWalker(Grid* g);
 	RandomWalker(sf::Vector2i initialPos);
 	void update();
 	sf::Vector2i getDirection();
 	void setDirection(sf::Vector2i dir);
 	sf::Vector2i getPosition();
+	void move();
 private:
 	sf::Vector2i m_pos;
 	sf::Vector2i m_direction;
-	Grid* m_grid;
 };
 
 #endif
