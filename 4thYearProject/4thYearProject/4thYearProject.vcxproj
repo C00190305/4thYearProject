@@ -126,6 +126,8 @@
     <ClCompile Include="FloorTile.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RandomWalker.cpp" />
+    <ClCompile Include="RandomWalkGenerator.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -14,13 +14,15 @@ class RandomWalker
 public:
 	RandomWalker();
 	RandomWalker(Grid* g);
+	RandomWalker(sf::Vector2i initialPos);
 	void update();
+	sf::Vector2i getDirection();
+	void setDirection(sf::Vector2i dir);
+	sf::Vector2i getPosition();
 private:
-	sf::Vector2f m_pos;
+	sf::Vector2i m_pos;
+	sf::Vector2i m_direction;
 	Grid* m_grid;
-	const float CHANCE_TO_CHANGE_DIRECTION = 0.5f;
-	const float CHANCE_TO_DESTROY = 0.05f;
-	const float CHANCE_TO_SPAWN_NEW_AGENT = 0.05f;
 };
 
 #endif

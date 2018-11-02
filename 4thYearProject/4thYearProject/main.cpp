@@ -5,6 +5,7 @@
 
 #include "Tile.h"
 #include "Grid.h"
+#include "RandomWalkGenerator.h"
 
 void buttonPressed()
 {
@@ -20,10 +21,9 @@ int main()
 	button->setSize(300, 50);
 	button->setPosition((window->getSize().x / 2) - 150, (window->getSize().y / 2) - 25);
 	gui.add(button);
-	button->connect("Pressed", buttonPressed);
+	button->connect("Pressed", buttonPressed);	
 
-	Grid* g = new Grid(32, 32, "wall");
-	
+	RandomWalkGenerator m_level(60, 60);
 
 	while (window->isOpen())
 	{
@@ -46,14 +46,6 @@ int main()
 		
 
 		window->clear();
-
-		for (int i = 0; i < g->getWidth(); i++)
-		{
-			for (int j = 0; j < g->getHeight(); j++)
-			{
-				g->getTileArray()[i][j].draw(*window);
-			}
-		}
 
 		gui.draw();
 		t.draw(*window);
