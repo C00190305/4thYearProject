@@ -40,5 +40,6 @@ sf::Vector2i RandomWalker::getPosition()
 
 void RandomWalker::move()
 {
-	m_pos += m_direction;
+	m_pos.x += (m_direction.x);
+	m_pos.y += (m_direction.y);
 }

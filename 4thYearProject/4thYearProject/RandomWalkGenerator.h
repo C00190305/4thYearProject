@@ -30,6 +30,8 @@ private:
 	};
 
 	Tile*** m_tileArray;
+	std::vector<std::vector<Tile*>> m_tileVector;
+	std::vector<std::vector<GridSpace>> m_gridSpaceVector;
 	int m_width, m_height;
 	GridSpace** m_gridSpace;
 	std::list<RandomWalker*> m_walkers;

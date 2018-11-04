@@ -27,6 +27,8 @@ RandomWalkGenerator::RandomWalkGenerator(int width, int height) : m_width(width)
 		m_tileArray[i] = new Tile*[m_height];
 	}
 
+
+
 	//Initialize gridspace as entirely empty cells.
 	for (int i = 0; i < m_width; i++)
 	{
@@ -75,7 +77,10 @@ void RandomWalkGenerator::generate()
 
 		
 
-	} while (iterations < 50);
+	} while (iterations < 20);
+
+	//Lastly, create the tile array as a visual representation of m_gridSpace.
+	createTileArray();
 }
 
 void RandomWalkGenerator::destroyWalker()
