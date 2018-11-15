@@ -73,6 +73,10 @@
     <IncludePath>C:\DevTools\SFML-2.5.1\include;C:\DevTools\thor\include;C:\DevTools\TGUI\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\DevTools\SFML-2.5.1\lib;C:\DevTools\thor\lib;C:\DevTools\TGUI\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\SFML-2.5.1\include;C:\TGUI-0.8\include;C:\thor-v2.0-msvc2015\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SFML-2.5.1\lib;C:\thor-v2.0-msvc2015\lib;C:\TGUI-0.8\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -93,7 +97,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\SFML-2.5.1\include;C:\TGUI-0.8\include;C:\thor-v2.0-msvc2015\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\SFML-2.5.1\lib;C:\thor-v2.0-msvc2015\lib;C:\TGUI-0.8\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;tgui.lib;thor-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

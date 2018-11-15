@@ -7,24 +7,32 @@ RandomWalker::RandomWalker()
 
 RandomWalker::RandomWalker(sf::Vector2i initialPos) : m_pos(initialPos)
 {
-	m_direction = getDirection();
+	m_direction = getNewDirection();
 }
 
 //Return a random cardinal direction in vector2 form.
-sf::Vector2i RandomWalker::getDirection()
+sf::Vector2i RandomWalker::getNewDirection()
 {
 	int result = thor::random(1, 4);
 
-	switch (result)
+	if (result == 1)
 	{
-		case 1:
-			return sf::Vector2i(1, 0); //East
-		case 2:
-			return sf::Vector2i(-1, 0); //West
-		case 3:
-			return sf::Vector2i(0, 1); //South
-		case 4:
-			return sf::Vector2i(0, -1); //North
+		return sf::Vector2i(1, 0); //East
+	}
+
+	if (result == 2)
+	{
+		return sf::Vector2i(-1, 0); //West
+	}
+
+	if (result == 3)
+	{
+		return sf::Vector2i(0, 1); //South
+	}
+
+	if (result == 4)
+	{
+		return sf::Vector2i(0, -1); //North
 	}
 }
 

@@ -23,7 +23,7 @@ int main()
 	gui.add(button);
 	button->connect("Pressed", buttonPressed);	
 
-	RandomWalkGenerator m_level(60, 60);
+	RandomWalkGenerator m_level(21, 21);
 	m_level.generate();
 
 	while (window->isOpen())

@@ -8,6 +8,7 @@ RandomWalkGenerator::RandomWalkGenerator()
 //Overloaded constructor
 //Width: width of the level in number of tiles.
 //Height: height of the level in number of tiles.
+
 RandomWalkGenerator::RandomWalkGenerator(int width, int height) : m_width(width), m_height(height)
 {
 	//Add the original walker to the vector
@@ -50,12 +51,12 @@ void RandomWalkGenerator::generate()
 		//Create floor at the position of each walker.
 		for (auto walker : m_walkers)
 		{
-			m_gridSpace[walker->getPosition().x][walker->getPosition().y] = GridSpace::floor;
+			m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] = GridSpace::floor;
 		}
 
+		calculateNewDirection();
 		destroyWalker();
 		spawnNewWalker();
-		calculateNewDirection();
 
 		//Move each walker
 		for (auto walker : m_walkers)
@@ -77,7 +78,7 @@ void RandomWalkGenerator::generate()
 
 		
 
-	} while (iterations < 20);
+	} while (iterations < 10000);
 
 	//Lastly, create the tile array as a visual representation of m_gridSpace.
 	createTileArray();
@@ -100,10 +101,16 @@ void RandomWalkGenerator::destroyWalker()
 void RandomWalkGenerator::spawnNewWalker()
 {
 	//If the random value is less than the chance to spawn a new one and there isnt already the maximum number of walkers
-	if (thor::random(0.0f, 1.0f) < CHANCE_TO_SPAWN_NEW_WALKER && m_walkers.size() < MAX_WALKERS)
+	std::list<RandomWalker*>::iterator iter;
+	for (iter = m_walkers.begin(); iter != m_walkers.end(); ++iter)
 	{
-		//add a new walker to the list, starting in the middle of the grid.
-		m_walkers.push_back(new RandomWalker(sf::Vector2i(m_width / 2, m_height / 2)));
+		if (thor::random(0.0f, 1.0f) < CHANCE_TO_SPAWN_NEW_WALKER && m_walkers.size() < MAX_WALKERS)
+		{
+			//add a new walker to the list, starting in the middle of the grid.
+			//m_walkers.push_back(new RandomWalker(sf::Vector2i(m_width / 2, m_height / 2)));
+			m_walkers.push_back(new RandomWalker((*iter)->getPosition()));
+			break;
+		}
 	}
 }
 
@@ -112,7 +119,19 @@ void RandomWalkGenerator::calculateNewDirection()
 	std::list<RandomWalker*>::iterator iter;
 	for (iter = m_walkers.begin(); iter != m_walkers.end(); ++iter)
 	{
-		(*iter)->getDirection();
+		if (thor::random(0.0f, 1.0f) < CHANCE_TO_CHANGE_DIRECTION)
+		{
+			(*iter)->getNewDirection();
+			std::cout << "Direction changed" << std::endl;
+		}
+
+		if ((*iter)->getPosition().x == 1 ||
+			(*iter)->getPosition().x == m_width - 2 ||
+			(*iter)->getPosition().y == 1 ||
+			(*iter)->getPosition().y == m_width - 2)
+		{
+			(*iter)->getNewDirection();
+		}
 	}
 }
 
@@ -129,6 +148,7 @@ int RandomWalkGenerator::numberOfFloorsInGrid()
 			}
 		}
 	}
+	std::cout << "Number of floors: " << count << std::endl;
 	return count;
 }
 
@@ -138,14 +158,18 @@ void RandomWalkGenerator::createTileArray()
 	{
 		for (int j = 0; j < m_height; j++)
 		{
-			switch (m_gridSpace[i][j])
+			if (m_gridSpace[i][j] == GridSpace::empty)
 			{
-			case GridSpace::empty:
-				break;
-			case GridSpace::wall:
 				m_tileArray[i][j] = new WallTile(i, j);
-				break;
-			case GridSpace::floor:
+			}
+
+			if (m_gridSpace[i][j] == GridSpace::wall)
+			{
+				m_tileArray[i][j] = new WallTile(i, j);
+			}
+
+			if (m_gridSpace[i][j] == GridSpace::floor)
+			{
 				m_tileArray[i][j] = new FloorTile(i, j);
 			}
 		}

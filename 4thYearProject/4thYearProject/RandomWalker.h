@@ -15,7 +15,7 @@ public:
 	RandomWalker();
 	RandomWalker(sf::Vector2i initialPos);
 	void update();
-	sf::Vector2i getDirection();
+	sf::Vector2i getNewDirection();
 	void setDirection(sf::Vector2i dir);
 	sf::Vector2i getPosition();
 	void move();
