@@ -51,12 +51,16 @@ void RandomWalkGenerator::generate()
 		//Create floor at the position of each walker.
 		for (auto walker : m_walkers)
 		{
-			m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] = GridSpace::floor;
-		}
+			if (m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] != GridSpace::floor)
+			{
+				m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] = GridSpace::floor;
+			}
 
-		calculateNewDirection();
-		destroyWalker();
-		spawnNewWalker();
+			else
+			{
+				continue;
+			}
+		}
 
 		//Move each walker
 		for (auto walker : m_walkers)
@@ -69,16 +73,20 @@ void RandomWalkGenerator::generate()
 			walker->move();
 		}
 
-		if ((float)(numberOfFloorsInGrid() / (float)(m_width * m_height)) > FILL_PERCENTAGE)
-		{
-			break;
-		}
+		calculateNewDirection();
+		destroyWalker();
+		spawnNewWalker();
+
+		//if ((float)(numberOfFloorsInGrid() / (float)(m_width * m_height)) > FILL_PERCENTAGE)
+		//{
+		//	break;
+		//}
 
 		iterations++;
 
 		
 
-	} while (iterations < 10000);
+	} while (iterations < 2000);
 
 	//Lastly, create the tile array as a visual representation of m_gridSpace.
 	createTileArray();
@@ -123,15 +131,19 @@ void RandomWalkGenerator::calculateNewDirection()
 		{
 			(*iter)->getNewDirection();
 			std::cout << "Direction changed" << std::endl;
+			break;
 		}
 
 		if ((*iter)->getPosition().x == 1 ||
-			(*iter)->getPosition().x == m_width - 2 ||
+			(*iter)->getPosition().x == m_width - 3 ||
 			(*iter)->getPosition().y == 1 ||
-			(*iter)->getPosition().y == m_width - 2)
+			(*iter)->getPosition().y == m_width - 3)
 		{
 			(*iter)->getNewDirection();
+			std::cout << "Direction due to bounds changed" << std::endl;
+			break;
 		}
+		break;
 	}
 }
 
