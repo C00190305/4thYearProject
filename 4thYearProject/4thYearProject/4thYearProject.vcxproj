@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CellularAutomataGenerator.cpp" />
     <ClCompile Include="FloorTile.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="WallTile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CellularAutomataGenerator.h" />
     <ClInclude Include="FloorTile.h" />
     <ClInclude Include="RandomWalker.h" />
     <ClInclude Include="Grid.h" />

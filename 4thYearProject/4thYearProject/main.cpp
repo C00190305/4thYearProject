@@ -6,6 +6,7 @@
 #include "Tile.h"
 #include "Grid.h"
 #include "RandomWalkGenerator.h"
+#include "CellularAutomataGenerator.h"
 
 void buttonPressed()
 {
@@ -23,8 +24,10 @@ int main()
 	gui.add(button);
 	button->connect("Pressed", buttonPressed);	
 
-	RandomWalkGenerator m_level(21, 21);
-	m_level.generate();
+	CellularAutomataGenerator cellularAutomataGenerator(30, 30, 4);
+
+	//RandomWalkGenerator m_level(21, 21);
+	//m_level.generate();
 
 	while (window->isOpen())
 	{
@@ -50,7 +53,7 @@ int main()
 
 		gui.draw();
 		t.draw(*window);
-		m_level.draw(*window);
+		//m_level.draw(*window);
 		window->display();
 	}
 
