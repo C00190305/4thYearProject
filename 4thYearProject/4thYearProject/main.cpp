@@ -24,7 +24,9 @@ int main()
 	gui.add(button);
 	button->connect("Pressed", buttonPressed);	
 
-	CellularAutomataGenerator cellularAutomataGenerator(30, 30, 4);
+	CellularAutomataGenerator cellularAutomataGenerator(30, 30, 3);
+
+	cellularAutomataGenerator.generate();
 
 	//RandomWalkGenerator m_level(21, 21);
 	//m_level.generate();
@@ -54,6 +56,7 @@ int main()
 		gui.draw();
 		t.draw(*window);
 		//m_level.draw(*window);
+		cellularAutomataGenerator.draw(*window);
 		window->display();
 	}
 
