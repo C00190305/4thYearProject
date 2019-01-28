@@ -24,12 +24,12 @@ int main()
 	gui.add(button);
 	button->connect("Pressed", buttonPressed);	
 
-	CellularAutomataGenerator cellularAutomataGenerator(30, 30, 3);
+	//CellularAutomataGenerator cellularAutomataGenerator(30, 30, 3);
 
-	cellularAutomataGenerator.generate();
+	//cellularAutomataGenerator.generate();
 
-	//RandomWalkGenerator m_level(21, 21);
-	//m_level.generate();
+	RandomWalkGenerator randomWalkGenerator(30, 30);
+	randomWalkGenerator.generate();
 
 	while (window->isOpen())
 	{
@@ -55,8 +55,8 @@ int main()
 
 		gui.draw();
 		t.draw(*window);
-		//m_level.draw(*window);
-		cellularAutomataGenerator.draw(*window);
+		//cellularAutomataGenerator.draw(*window);
+		randomWalkGenerator.draw(*window);
 		window->display();
 	}
 

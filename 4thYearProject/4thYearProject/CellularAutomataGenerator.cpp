@@ -88,7 +88,7 @@ auto CellularAutomataGenerator::doSimulationStep()
 
 void CellularAutomataGenerator::generate()
 {
-	for (int i = 0; i < m_numSimulationSteps; i++)
+	for (int i = 0; i < m_numSimulationSteps - 1; i++)
 	{
 		grid = doSimulationStep();
 	}

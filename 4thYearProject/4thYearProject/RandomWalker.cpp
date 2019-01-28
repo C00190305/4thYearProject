@@ -13,19 +13,19 @@ RandomWalker::RandomWalker(sf::Vector2i initialPos) : m_pos(initialPos)
 //Return a random cardinal direction in vector2 form.
 sf::Vector2i RandomWalker::getNewDirection()
 {
-	float result = std::floorf(thor::random(0.0f, 3.99f));
+	float result = thor::random(0.0f, 3.99f);
 
-	if (result == 0)
+	if (result <= 1.0f)
 	{
 		return sf::Vector2i(1, 0); //East
 	}
 
-	else if (result == 1)
+	else if (result > 1.0f && result <= 2.0f)
 	{
 		return sf::Vector2i(-1, 0); //West
 	}
 
-	else if (result == 2)
+	else if (result > 2.0f && result <= 3.0f)
 	{
 		return sf::Vector2i(0, 1); //South
 	}
