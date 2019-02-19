@@ -11,11 +11,12 @@ class Grid
 {
 public:
 	Grid();
+	//Width and height in number of tiles.
+	Grid(const int &width1, const int &height1, const int &width2, const int &height2);
 	void draw(sf::RenderWindow &window);
 	int getWidth();
 	int getHeight();
-	//Width and height in number of tiles.
-	Grid(const int &width, const int &height, const std::string &tileType);
+
 private:
 	int m_width;
 	int m_height;
