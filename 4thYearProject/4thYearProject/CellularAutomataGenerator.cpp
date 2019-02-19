@@ -144,7 +144,6 @@ int CellularAutomataGenerator::countAliveNeighbours(std::vector<std::vector<Grid
 	{
 		count++;
 	}
-	std::cout << count << std::endl;
 	return count;
 }
 

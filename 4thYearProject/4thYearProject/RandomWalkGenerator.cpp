@@ -64,10 +64,6 @@ void RandomWalkGenerator::generate()
 		//Move each walker
 		for (auto walker : m_walkers)
 		{
-			//Clamp the position value so it cannot go outside of the bounds of the level
-			//std::clamp(walker->getPosition().x, 1, m_width - 2);
-			//std::clamp(walker->getPosition().y, 1, m_height - 2);
-
 			//move each walker
 			walker->move();
 		}
@@ -122,7 +118,6 @@ void RandomWalkGenerator::calculateNewDirection()
 		if (thor::random(0.0f, 1.0f) < CHANCE_TO_CHANGE_DIRECTION)
 		{
 			(*iter)->setDirection((*iter)->getNewDirection());
-			std::cout << "Direction changed" << std::endl;
 
 		}
 		
@@ -142,7 +137,6 @@ int RandomWalkGenerator::numberOfFloorsInGrid()
 			}
 		}
 	}
-	std::cout << "Number of floors: " << count << std::endl;
 	return count;
 }
 

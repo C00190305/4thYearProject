@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <TGUI/TGUI.hpp>
+
 
 #include <iostream>
 
@@ -8,25 +8,15 @@
 #include "RandomWalkGenerator.h"
 #include "CellularAutomataGenerator.h"
 
-void buttonPressed()
-{
-	std::cout << "Button pressed" << std::endl;
-}
-
 int main()
 {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1280, 720), "4th Year Project Simon Dowling C00190305");
-	tgui::Gui gui(*window);
-	Tile t("grass");
-	tgui::Button::Ptr button = tgui::Button::create("Start");
-	button->setSize(300, 50);
-	button->setPosition((window->getSize().x / 2) - 150, (window->getSize().y / 2) - 25);
-	gui.add(button);
-	button->connect("Pressed", buttonPressed);	
 
-	//CellularAutomataGenerator cellularAutomataGenerator(30, 30, 3);
 
-	//cellularAutomataGenerator.generate();
+
+	CellularAutomataGenerator cellularAutomataGenerator(30, 30, 3);
+
+	cellularAutomataGenerator.generate();
 
 	RandomWalkGenerator randomWalkGenerator(30, 30);
 	randomWalkGenerator.generate();
@@ -46,16 +36,12 @@ int main()
 				window->close();
 			}
 
-			gui.handleEvent(event);
 		}
 
 		
 
 		window->clear();
-
-		gui.draw();
-		t.draw(*window);
-		//cellularAutomataGenerator.draw(*window);
+		cellularAutomataGenerator.draw(*window);
 		randomWalkGenerator.draw(*window);
 		window->display();
 	}

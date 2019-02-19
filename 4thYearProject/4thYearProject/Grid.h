@@ -6,6 +6,7 @@
 
 #include "Tile.h"
 
+//Class that controls the collective of all generator object's data structures.
 class Grid
 {
 public:
@@ -17,9 +18,9 @@ public:
 	Grid(const int &width, const int &height, const std::string &tileType);
 private:
 	int m_width;
-	int m_height;	
-	Tile** m_tileArray;
-	std::vector<std::vector<Tile>> m_tileVector;
+	int m_height;
+	std::vector<std::vector<int>> m_dataVector;
+	std::vector<std::vector<Tile*>> m_tileVector;
 };
 
 #endif // !GRID_H
