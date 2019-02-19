@@ -36,6 +36,9 @@
     <ClCompile Include="WallTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CellularAutomataGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tile.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RandomWalker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CellularAutomataGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

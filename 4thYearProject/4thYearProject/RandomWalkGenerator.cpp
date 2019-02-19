@@ -46,47 +46,39 @@ void RandomWalkGenerator::generate()
 	
 
 	//main loop
-	do
+	while(iterations < 2000)
 	{
 		//Create floor at the position of each walker.
 		for (auto walker : m_walkers)
 		{
-			if (m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] != GridSpace::floor)
+			if (m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] == GridSpace::empty)
 			{
 				m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] = GridSpace::floor;
 			}
-
-			else
-			{
-				continue;
-			}
 		}
+
+		destroyWalker();
+		spawnNewWalker();
+		calculateNewDirection();
 
 		//Move each walker
 		for (auto walker : m_walkers)
 		{
 			//Clamp the position value so it cannot go outside of the bounds of the level
-			std::clamp(walker->getPosition().x, 1, m_width - 2);
-			std::clamp(walker->getPosition().y, 1, m_height - 2);
+			//std::clamp(walker->getPosition().x, 1, m_width - 2);
+			//std::clamp(walker->getPosition().y, 1, m_height - 2);
 
 			//move each walker
 			walker->move();
 		}
 
-		calculateNewDirection();
-		destroyWalker();
-		spawnNewWalker();
-
-		//if ((float)(numberOfFloorsInGrid() / (float)(m_width * m_height)) > FILL_PERCENTAGE)
-		//{
-		//	break;
-		//}
+		if ((float)(numberOfFloorsInGrid() / (float)(m_width * m_height)) > FILL_PERCENTAGE)
+		{
+			iterations = 2000;
+		}
 
 		iterations++;
-
-		
-
-	} while (iterations < 2000);
+	}
 
 	//Lastly, create the tile array as a visual representation of m_gridSpace.
 	createTileArray();
@@ -117,7 +109,7 @@ void RandomWalkGenerator::spawnNewWalker()
 			//add a new walker to the list, starting in the middle of the grid.
 			//m_walkers.push_back(new RandomWalker(sf::Vector2i(m_width / 2, m_height / 2)));
 			m_walkers.push_back(new RandomWalker((*iter)->getPosition()));
-			break;
+			
 		}
 	}
 }
@@ -129,21 +121,11 @@ void RandomWalkGenerator::calculateNewDirection()
 	{
 		if (thor::random(0.0f, 1.0f) < CHANCE_TO_CHANGE_DIRECTION)
 		{
-			(*iter)->getNewDirection();
+			(*iter)->setDirection((*iter)->getNewDirection());
 			std::cout << "Direction changed" << std::endl;
-			break;
-		}
 
-		if ((*iter)->getPosition().x == 1 ||
-			(*iter)->getPosition().x == m_width - 3 ||
-			(*iter)->getPosition().y == 1 ||
-			(*iter)->getPosition().y == m_width - 3)
-		{
-			(*iter)->getNewDirection();
-			std::cout << "Direction due to bounds changed" << std::endl;
-			break;
 		}
-		break;
+		
 	}
 }
 
