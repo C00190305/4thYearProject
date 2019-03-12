@@ -182,3 +182,13 @@ void CellularAutomataGenerator::draw(sf::RenderWindow &window)
 CellularAutomataGenerator::~CellularAutomataGenerator()
 {
 }
+
+int CellularAutomataGenerator::getWidth()
+{
+	return m_width;
+}
+
+int CellularAutomataGenerator::getHeight()
+{
+	return m_height;
+}

@@ -13,6 +13,8 @@
 #include "RandomWalker.h"
 #include <Thor/Math.hpp>
 
+class RandomWalker;
+
 class RandomWalkGenerator
 {
 public:
@@ -20,6 +22,8 @@ public:
 	RandomWalkGenerator(int width, int height);
 	void generate();
 	void draw(sf::RenderWindow &window);
+	int getWidth();
+	int getHeight();
 private:
 
 	

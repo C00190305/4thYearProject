@@ -174,3 +174,13 @@ void RandomWalkGenerator::draw(sf::RenderWindow &window)
 		}
 	}
 }
+
+int RandomWalkGenerator::getHeight()
+{
+	return m_height;
+}
+
+int RandomWalkGenerator::getWidth()
+{
+	return m_width;
+}

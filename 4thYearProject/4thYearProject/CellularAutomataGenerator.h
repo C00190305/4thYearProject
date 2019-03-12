@@ -17,6 +17,9 @@ public:
 	~CellularAutomataGenerator();
 	void generate();
 	void draw(sf::RenderWindow &window);
+
+	int getWidth();
+	int getHeight();
 private:
 	//Cells can be either alive or dead
 	enum GridSpace

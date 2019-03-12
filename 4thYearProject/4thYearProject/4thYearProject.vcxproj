@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SFML_SDK)\include;C:\thor-v2.0-msvc2015\include;C:\DevTools\TGUI\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SFML_SDK)lib;C:\thor-v2.0-msvc2015\lib;C:\DevTools\TGUI\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SFML_SDK)\include;C:\DevTools\thor\include;C:\DevTools\TGUI\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SFML_SDK)lib;C:\DevTools\thor\lib;C:\DevTools\TGUI\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\DevTools\SFML-2.5.1\include;C:\DevTools\TGUI\include;C:\DevTools\thor\include;$(IncludePath)</IncludePath>
@@ -83,11 +83,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SFML_SDK)\include;C:\DevTools\TGUI\include;C:\thor-v2.0-msvc2015\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SFML_SDK)\include;C:\DevTools\TGUI\include;C:\DevTools\thor\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SFML_SDK)\lib;C:\thor-v2.0-msvc2015\lib;C:\DevTools\thor\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SFML_SDK)\lib;C:\DevTools\thor\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;thor-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
