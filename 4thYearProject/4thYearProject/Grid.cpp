@@ -38,6 +38,8 @@ Grid::Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* 
 	{
 		m_dataVector[i].reserve(m_width);
 	}
+
+	int secondIndex = randomWalkGenerator->getWidth() + 1;
 }
 
 void Grid::generate()

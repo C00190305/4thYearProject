@@ -7,6 +7,7 @@
 #include "Grid.h"
 #include "RandomWalkGenerator.h"
 #include "CellularAutomataGenerator.h"
+#include "Grid.h"
 
 int main()
 {
@@ -20,6 +21,9 @@ int main()
 
 	RandomWalkGenerator randomWalkGenerator(30, 30);
 	randomWalkGenerator.generate();
+
+	Grid* grid = new Grid(&randomWalkGenerator, &cellularAutomataGenerator);
+	grid->generate();
 
 	while (window->isOpen())
 	{
