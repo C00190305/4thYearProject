@@ -184,3 +184,31 @@ int RandomWalkGenerator::getWidth()
 {
 	return m_width;
 }
+
+std::vector<std::vector<int>> RandomWalkGenerator::getData()
+{
+	std::vector<std::vector<int>> data;
+	data.reserve(m_height);
+	for (int i = 0; i < m_height; i++)
+	{
+		data[i].reserve(m_width);
+	}
+
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			if (m_gridSpace[i][j] == GridSpace::floor)
+			{
+				data[i].at(j) = 0;
+			}
+
+			else if (m_gridSpace[i][j] == GridSpace::wall || m_gridSpace[i][j] == GridSpace::empty)
+			{
+				data[i].at(j) = 1;
+			}
+		}
+	}
+
+	return data;
+}

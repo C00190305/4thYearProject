@@ -39,12 +39,18 @@ Grid::Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* 
 		m_dataVector[i].reserve(m_width);
 	}
 
-	int secondIndex = randomWalkGenerator->getWidth() + 1;
+	m_x1 = 0;
+	m_x2 = randomWalkGenerator->getWidth() + 1;
+	m_y1 = 0;
+	m_y2 = 0;
+
+	
 }
 
 void Grid::generate()
 {
-	
+	//1. Get information from both generators and put into m_dataVector, which has been allocated space for both.
+	//m_pRandomWalkGenerator->getData();
 }
 
 int Grid::getWidth()

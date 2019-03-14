@@ -17,6 +17,12 @@ class RandomWalker;
 
 class RandomWalkGenerator
 {
+	enum GridSpace
+	{
+		empty,
+		floor,
+		wall
+	};
 public:
 	RandomWalkGenerator();
 	RandomWalkGenerator(int width, int height);
@@ -24,15 +30,8 @@ public:
 	void draw(sf::RenderWindow &window);
 	int getWidth();
 	int getHeight();
+	std::vector<std::vector<int>> getData();
 private:
-
-	
-	enum GridSpace
-	{
-		empty,
-		floor,
-		wall
-	};
 
 	Tile*** m_tileArray;
 	std::vector<std::vector<Tile*>> m_tileVector;
