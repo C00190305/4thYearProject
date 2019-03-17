@@ -22,8 +22,9 @@ int main()
 	RandomWalkGenerator randomWalkGenerator(30, 30);
 	randomWalkGenerator.generate();
 
-	Grid* grid = new Grid(&randomWalkGenerator, &cellularAutomataGenerator);
+	Grid* grid = new Grid(&randomWalkGenerator, &cellularAutomataGenerator, 30, 0);
 	grid->generate();
+	grid->createTiles();
 
 	while (window->isOpen())
 	{
@@ -45,8 +46,7 @@ int main()
 		
 
 		window->clear();
-		cellularAutomataGenerator.draw(*window);
-		randomWalkGenerator.draw(*window);
+		grid->draw(*window);
 		window->display();
 	}
 

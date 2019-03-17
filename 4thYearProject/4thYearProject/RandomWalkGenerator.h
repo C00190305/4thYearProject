@@ -31,6 +31,7 @@ public:
 	int getWidth();
 	int getHeight();
 	std::vector<std::vector<int>> getData();
+	void createTileArray();
 private:
 
 	Tile*** m_tileArray;
@@ -50,7 +51,6 @@ private:
 	void destroyWalker();
 	void calculateNewDirection();
 	int numberOfFloorsInGrid();
-	void createTileArray();
 };
 
 #endif // !RANDOMWALKGENERATOR_H

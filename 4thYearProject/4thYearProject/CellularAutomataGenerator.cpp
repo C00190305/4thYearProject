@@ -92,7 +92,6 @@ void CellularAutomataGenerator::generate()
 	{
 		grid = doSimulationStep();
 	}
-	createTileArray();
 }
 
 //Counts the neighbours around the cell at index x, y in the 2d vector
@@ -191,4 +190,38 @@ int CellularAutomataGenerator::getWidth()
 int CellularAutomataGenerator::getHeight()
 {
 	return m_height;
+}
+
+std::vector<std::vector<int>> CellularAutomataGenerator::getData()
+{
+	std::vector<std::vector<int>> data;
+	data.reserve(m_height);
+	data.resize(m_height);
+	for (int i = 0; i < m_height; i++)
+	{
+		data[i].reserve(m_width);
+		for (int j = 0; j < m_width; j++)
+		{
+			data[i].push_back(0);
+		}
+
+	}
+
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			if (*grid[i].at(j) == GridSpace::dead)
+			{
+				data[i].at(j) = 0;
+			}
+
+			else if (*grid[i].at(j) == GridSpace::alive)
+			{
+				data[i].at(j) = 1;
+			}
+		}
+	}
+
+	return data;
 }

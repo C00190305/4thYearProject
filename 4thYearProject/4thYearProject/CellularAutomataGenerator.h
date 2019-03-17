@@ -20,6 +20,8 @@ public:
 
 	int getWidth();
 	int getHeight();
+	std::vector<std::vector<int>> getData();
+	void createTileArray();
 private:
 	//Cells can be either alive or dead
 	enum GridSpace
@@ -39,7 +41,6 @@ private:
 
 	auto doSimulationStep();
 	int countAliveNeighbours(std::vector<std::vector<GridSpace*>> grid, int x,  int y);
-	void createTileArray();	
 	
 };
 

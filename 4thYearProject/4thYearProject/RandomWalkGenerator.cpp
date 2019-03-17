@@ -75,9 +75,6 @@ void RandomWalkGenerator::generate()
 
 		iterations++;
 	}
-
-	//Lastly, create the tile array as a visual representation of m_gridSpace.
-	createTileArray();
 }
 
 void RandomWalkGenerator::destroyWalker()
@@ -189,9 +186,15 @@ std::vector<std::vector<int>> RandomWalkGenerator::getData()
 {
 	std::vector<std::vector<int>> data;
 	data.reserve(m_height);
+	data.resize(m_height);
 	for (int i = 0; i < m_height; i++)
 	{
 		data[i].reserve(m_width);
+		for (int j = 0; j < m_width; j++)
+		{
+			data[i].push_back(0);
+		}
+		
 	}
 
 	for (int i = 0; i < m_width; i++)
