@@ -16,7 +16,7 @@ class Grid
 {
 public:
 	Grid();
-	Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* cellularAutomataGenerator, int index_X, int index_Y);
+	Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* cellularAutomataGenerator, int overlapX, int overlapY);
 	int getWidth();
 	int getHeight();
 	std::vector<std::vector<int>> getData();

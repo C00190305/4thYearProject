@@ -9,7 +9,7 @@ Grid::Grid()
 
 //\param randomWalkGenerator : pointer to RandomWalkGenerator
 //\param cellularAutomataGenerator : pointer to CellularAutomataGenerator
-Grid::Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* cellularAutomataGenerator, int index_X, int index_Y) : m_index_X(index_X), m_index_Y(index_Y)
+Grid::Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* cellularAutomataGenerator, int overlapX, int overlapY) : m_index_X(overlapX), m_index_Y(overlapY)
 {
 	//Store pointers to generators
 	m_pCellularAutomataGenerator = cellularAutomataGenerator;
@@ -33,9 +33,6 @@ Grid::Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* 
 		m_tileVector[i].resize(m_height);
 		m_tileVector[i].reserve(m_height);
 	}
-	
-	
-	m_pCellularAutomataGenerator->getData();
 }
 
 void Grid::generate()
@@ -53,7 +50,7 @@ void Grid::generate()
 	{
 		for (int j = m_index_X; j < m_index_X + m_pCellularAutomataGenerator->getWidth(); j++)
 		{
-			m_dataVector[i].at(j) = m_pCellularAutomataGenerator->getData()[i].at(j - m_pCellularAutomataGenerator->getWidth());
+			m_dataVector[j].at(i) = m_pCellularAutomataGenerator->getData()[i - m_index_Y].at(j - m_index_X);
 		}
 	}
 }

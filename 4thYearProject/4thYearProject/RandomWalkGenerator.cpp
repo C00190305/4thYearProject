@@ -51,9 +51,9 @@ void RandomWalkGenerator::generate()
 		//Create floor at the position of each walker.
 		for (auto walker : m_walkers)
 		{
-			if (m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] == GridSpace::empty)
+			if (m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 1)][std::clamp(walker->getPosition().y, 1, m_height - 1)] == GridSpace::empty)
 			{
-				m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 2)][std::clamp(walker->getPosition().y, 1, m_height - 2)] = GridSpace::floor;
+				m_gridSpace[std::clamp(walker->getPosition().x, 1, m_width - 1)][std::clamp(walker->getPosition().y, 1, m_height - 1)] = GridSpace::floor;
 			}
 		}
 
