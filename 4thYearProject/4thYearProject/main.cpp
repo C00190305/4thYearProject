@@ -22,7 +22,7 @@ int main()
 	RandomWalkGenerator randomWalkGenerator(30, 30);
 	randomWalkGenerator.generate();
 
-	Grid* grid = new Grid(&randomWalkGenerator, &cellularAutomataGenerator, 30, 0);
+	Grid* grid = new Grid(&randomWalkGenerator, &cellularAutomataGenerator, 15, 15);
 	grid->generate();
 	grid->createTiles();
 
