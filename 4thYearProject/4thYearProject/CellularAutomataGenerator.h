@@ -15,7 +15,7 @@ public:
 	CellularAutomataGenerator();
 	CellularAutomataGenerator(int width, int height, int numberOfSimulationSteps);
 	~CellularAutomataGenerator();
-	void generate();
+	void generate(int numberOfSimulationSteps, int birthLimit, int deathLimit, float chanceStartAlive);
 	void draw(sf::RenderWindow &window);
 
 	int getWidth();

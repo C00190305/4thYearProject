@@ -40,9 +40,15 @@ RandomWalkGenerator::RandomWalkGenerator(int width, int height) : m_width(width)
 	}
 }
 
-void RandomWalkGenerator::generate()
+void RandomWalkGenerator::generate(const int maxWalkers, const float fillPercentage, const float chanceToChangeDirection, const float chanceToDestroyWalker, const float chanceToSpawnWalker)
 {
 	int iterations = 0;
+
+	MAX_WALKERS = maxWalkers;
+	FILL_PERCENTAGE = fillPercentage;
+	CHANCE_TO_CHANGE_DIRECTION = chanceToChangeDirection;
+	CHANCE_TO_DESTROY = chanceToDestroyWalker;
+	CHANCE_TO_SPAWN_NEW_WALKER = chanceToSpawnWalker;
 	
 
 	//main loop

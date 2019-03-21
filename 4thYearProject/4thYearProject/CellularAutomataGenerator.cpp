@@ -86,8 +86,12 @@ auto CellularAutomataGenerator::doSimulationStep()
 
 }
 
-void CellularAutomataGenerator::generate()
+void CellularAutomataGenerator::generate(int numberOfSimulationSteps, int birthLimit, int deathLimit, float chanceStartAlive)
 {
+	m_numSimulationSteps = numberOfSimulationSteps;
+	m_birthLimit = birthLimit;
+	m_deathLimit = deathLimit;
+	m_chanceStartAlive = chanceStartAlive;
 	for (int i = 0; i < m_numSimulationSteps - 1; i++)
 	{
 		grid = doSimulationStep();
