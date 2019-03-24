@@ -12,6 +12,7 @@ App::App()
 	m_gridGenerated = false;
 	m_window = new sf::RenderWindow(sf::VideoMode(1280, 720), "4th Year Project Simon Dowling C00190305");
 	m_gui = new tgui::Gui(*m_window);
+	createUI();
 }
 
 
@@ -20,6 +21,7 @@ App::App()
 /// </summary>
 App::~App()
 {
+	
 }
 
 
@@ -45,9 +47,14 @@ void App::run()
 			{
 				m_window->close();
 			}
-		}
 
-		m_gui->handleEvent(event);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+			{
+				m_window->close();
+			}
+
+			m_gui->handleEvent(event);
+		}
 
 		timeSinceLastUpdate += clock.restart();
 		if (timeSinceLastUpdate > timePerFrame)
@@ -80,8 +87,19 @@ void App::update(sf::Int32 dt)
 /// </summary>
 void App::render()
 {
-	m_window->clear();
+	m_window->clear(sf::Color(0, 125, 125, 255));
 
+	if (m_RWGenerated == true)
+	{
+		m_randomWalkGenerator->draw(*m_window);
+	}
+
+	if (m_CAGenerated == true)
+	{
+		m_cellularAutomataGenerator->draw(*m_window);
+	}
+
+	m_gui->draw();
 
 	m_window->display();
 }
@@ -97,6 +115,7 @@ void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillP
 		parse_string<float>(ebChanceToChangeDirection->getText().toAnsiString()),
 		parse_string<float>(ebChanceToDestroyWalker->getText().toAnsiString()),
 		parse_string<float>(ebChanceToSpawnNewWalker->getText().toAnsiString()));
+	m_randomWalkGenerator->createTileArray();
 	m_RWGenerated = true;
 }
 
@@ -110,7 +129,124 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 		parse_string<int>(ebBirthLimit->getText().toAnsiString()),
 		parse_string<int>(ebDeathLimit->getText().toAnsiString()),
 		parse_string<float>(ebChanceStartAlive->getText().toAnsiString()));
+	m_cellularAutomataGenerator->createTileArray();
 	m_CAGenerated = true;
+}
+
+/// <summary>
+/// Creates and allocates tgui UI objects.
+/// </summary>
+void App::createUI()
+{
+	//Random walk
+	m_labelMaxWalkers = tgui::Label::create("Maximum Walkers:");
+	m_labelMaxWalkers->setPosition(0, 100);
+	m_gui->add(m_labelMaxWalkers);
+
+	m_ebMaxWalkers = tgui::EditBox::create();
+	m_ebMaxWalkers->setSize(60, 15);
+	m_ebMaxWalkers->setPosition(185, 100);
+	m_ebMaxWalkers->setText("10");
+	m_gui->add(m_ebMaxWalkers);
+
+	m_labelFillPercentage = tgui::Label::create("Fill Percentage:");
+	m_labelFillPercentage->setPosition(0, 120);
+	m_gui->add(m_labelFillPercentage);
+
+	m_ebFillPercentage = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebFillPercentage->setPosition(185, 120);
+	m_ebFillPercentage->setText("0.3f");
+	m_gui->add(m_ebFillPercentage);
+
+	m_labelChanceToChangeDirection = tgui::Label::create("Chance to change direction:");
+	m_labelChanceToChangeDirection->setPosition(0, 140);
+	m_gui->add(m_labelChanceToChangeDirection);
+
+	m_ebChanceToChangeDirection = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebChanceToChangeDirection->setPosition(185, 140);
+	m_ebChanceToChangeDirection->setText("0.2f");
+	m_gui->add(m_ebChanceToChangeDirection);
+
+	m_labelChanceToDestroyWalker = tgui::Label::create("Chance to destroy walker:");
+	m_labelChanceToDestroyWalker->setPosition(0, 160);
+	m_gui->add(m_labelChanceToDestroyWalker);
+
+	m_ebChanceToDestroyWalker = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebChanceToDestroyWalker->setPosition(185, 160);
+	m_ebChanceToDestroyWalker->setText("0.1f");
+	m_gui->add(m_ebChanceToDestroyWalker);
+
+	m_labelChanceToSpawnNewWalker = tgui::Label::create("Chance to spawn walker:");
+	m_labelChanceToSpawnNewWalker->setPosition(0, 180);
+	m_gui->add(m_labelChanceToSpawnNewWalker);
+
+	m_ebChanceToSpawnNewWalker = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebChanceToSpawnNewWalker->setPosition(185, 180);
+	m_ebChanceToSpawnNewWalker->setText("0.2f");
+	m_gui->add(m_ebChanceToSpawnNewWalker);
+
+	m_buttonGenerateRW = tgui::Button::create("Generate");
+	m_buttonGenerateRW->setSize(100, 20);
+	m_buttonGenerateRW->setPosition(100, 220);
+	m_gui->add(m_buttonGenerateRW);
+
+	m_buttonGenerateRW->connect("pressed", &App::generateRW,
+	this,
+	m_ebMaxWalkers,
+	m_ebFillPercentage,
+	m_ebChanceToChangeDirection,
+	m_ebChanceToDestroyWalker,
+	m_ebChanceToSpawnNewWalker);
+
+	//Cellular Automata
+	m_labelNumSimulationSteps = tgui::Label::create("Simulation steps:");
+	m_labelNumSimulationSteps->setPosition(320, 120);
+	m_gui->add(m_labelNumSimulationSteps);
+
+	m_ebNumSimulationSteps = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebNumSimulationSteps->setPosition(505, 120);
+	m_ebNumSimulationSteps->setText("3");
+	m_gui->add(m_ebNumSimulationSteps);
+
+	m_labelBirthLimit = tgui::Label::create("Birth limit:");
+	m_labelBirthLimit->setPosition(320, 140);
+	m_gui->add(m_labelBirthLimit);
+
+	m_ebBirthLimit = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebBirthLimit->setPosition(505, 140);
+	m_ebBirthLimit->setText("4");
+	m_gui->add(m_ebBirthLimit);
+
+	m_labelDeathLimit = tgui::Label::create("Death limit:");
+	m_labelDeathLimit->setPosition(320, 160);
+	m_gui->add(m_labelDeathLimit);
+
+	m_ebDeathLimit = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebDeathLimit->setPosition(505, 160);
+	m_ebDeathLimit->setText("3");
+	m_gui->add(m_ebDeathLimit);
+
+	m_labelChanceStartAlive = tgui::Label::create("Chance to start alive:");
+	m_labelChanceStartAlive->setPosition(320, 180);
+	m_gui->add(m_labelChanceStartAlive);
+
+	m_ebChanceStartAlive = tgui::EditBox::copy(m_ebMaxWalkers);
+	m_ebChanceStartAlive->setPosition(505, 180);
+	m_ebChanceStartAlive->setText("0.4f");
+	m_gui->add(m_ebChanceStartAlive);
+
+	m_buttonGenerateCA = tgui::Button::create("Generate");
+	m_buttonGenerateCA->setSize(100, 20);
+	m_buttonGenerateCA->setPosition(320, 220);
+	m_gui->add(m_buttonGenerateCA);
+
+	m_buttonGenerateCA->connect("pressed", &App::generateCA, 
+	this, 
+	m_ebNumSimulationSteps, 
+	m_ebBirthLimit, 
+	m_ebDeathLimit, 
+	m_ebChanceStartAlive);
+
 }
 
 
