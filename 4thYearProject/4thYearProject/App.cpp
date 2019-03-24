@@ -139,6 +139,11 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 void App::createUI()
 {
 	//Random walk
+	m_labelRW = tgui::Label::create("Random Walk Settings");
+	m_labelRW->setPosition(0, 50);
+	m_labelRW->setSize(200, 20);
+	m_gui->add(m_labelRW);
+
 	m_labelMaxWalkers = tgui::Label::create("Maximum Walkers:");
 	m_labelMaxWalkers->setPosition(0, 100);
 	m_gui->add(m_labelMaxWalkers);
@@ -199,6 +204,11 @@ void App::createUI()
 	m_ebChanceToSpawnNewWalker);
 
 	//Cellular Automata
+	m_labelCA = tgui::Label::create("Cellular Automata Settings");
+	m_labelCA->setPosition(320, 50);
+	m_labelCA->setSize(200, 20);
+	m_gui->add(m_labelCA);
+
 	m_labelNumSimulationSteps = tgui::Label::create("Simulation steps:");
 	m_labelNumSimulationSteps->setPosition(320, 120);
 	m_gui->add(m_labelNumSimulationSteps);

@@ -23,24 +23,6 @@ CellularAutomataGenerator::CellularAutomataGenerator(int width, int height, int 
 		m_tileVector.at(i).resize(m_height);
 	}
 
-	//Initialize the grid with each cell being randomly selected to be dead or alive
-	for (int i = 0; i < m_width; i++)
-	{
-		for (int j = 0; j < m_height; j++)
-		{
-			if (thor::random(0.0f, 1.0f) <= m_chanceStartAlive)
-			{
-				grid[i].at(j) = new GridSpace(GridSpace::alive);
-			}
-
-			else
-			{
-				grid[i].at(j) = new GridSpace(GridSpace::dead);
-			}
-
-		}
-	}
-
 }
 
 auto CellularAutomataGenerator::doSimulationStep()
@@ -92,6 +74,25 @@ void CellularAutomataGenerator::generate(int numberOfSimulationSteps, int birthL
 	m_birthLimit = birthLimit;
 	m_deathLimit = deathLimit;
 	m_chanceStartAlive = chanceStartAlive;
+
+	//Initialize the grid with each cell being randomly selected to be dead or alive
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			if (thor::random(0.0f, 1.0f) <= m_chanceStartAlive)
+			{
+				grid[i].at(j) = new GridSpace(GridSpace::alive);
+			}
+
+			else
+			{
+				grid[i].at(j) = new GridSpace(GridSpace::dead);
+			}
+
+		}
+	}
+
 	for (int i = 0; i < m_numSimulationSteps - 1; i++)
 	{
 		grid = doSimulationStep();
@@ -152,6 +153,16 @@ int CellularAutomataGenerator::countAliveNeighbours(std::vector<std::vector<Grid
 
 void CellularAutomataGenerator::createTileArray()
 {
+	//if (!m_tileVector.empty())
+	//{
+	//	m_tileVector.clear();
+	//	int size = m_tileVector.size();
+	//	for (int i = 0; i < size; i++)
+	//	{
+	//		m_tileVector[i].clear();
+	//	}
+	//}
+
 	for (int i = 0; i < m_width; i++)
 	{
 		for (int j = 0; j < m_height; j++)

@@ -47,6 +47,9 @@ private:
 	float CHANCE_TO_SPAWN_NEW_WALKER = 0.2f;
 	sf::Vector2i m_roomSizeWorldUnits;
 
+	int m_guiOffsetX = 20;
+	int m_guiOffsetY = 300;
+
 	void spawnNewWalker();
 	void destroyWalker();
 	void calculateNewDirection();

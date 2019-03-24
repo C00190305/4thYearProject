@@ -49,6 +49,8 @@ private:
 
 
 	//RandomWalk tgui elements
+	tgui::Label::Ptr m_labelRW;
+
 	tgui::EditBox::Ptr m_ebMaxWalkers;
 	tgui::Label::Ptr m_labelMaxWalkers;
 	tgui::EditBox::Ptr m_ebFillPercentage;
@@ -62,6 +64,8 @@ private:
 	tgui::Button::Ptr m_buttonGenerateRW;
 	
 	//CellularAutomata tgui elements
+	tgui::Label::Ptr m_labelCA;
+
 	tgui::EditBox::Ptr m_ebNumSimulationSteps;
 	tgui::Label::Ptr m_labelNumSimulationSteps;
 	tgui::EditBox::Ptr m_ebBirthLimit;
