@@ -40,10 +40,12 @@ RandomWalkGenerator::RandomWalkGenerator(int width, int height) : m_width(width)
 	}
 }
 
-void RandomWalkGenerator::generate(const int maxWalkers, const float fillPercentage, const float chanceToChangeDirection, const float chanceToDestroyWalker, const float chanceToSpawnWalker)
+void RandomWalkGenerator::generate(const int offsetX, const int offsetY, const int maxWalkers, const float fillPercentage, const float chanceToChangeDirection, const float chanceToDestroyWalker, const float chanceToSpawnWalker)
 {
 	int iterations = 0;
 
+	m_offsetX = offsetX;
+	m_offsetY = offsetY;
 	MAX_WALKERS = maxWalkers;
 	FILL_PERCENTAGE = fillPercentage;
 	CHANCE_TO_CHANGE_DIRECTION = chanceToChangeDirection;
@@ -151,17 +153,17 @@ void RandomWalkGenerator::createTileArray()
 		{
 			if (m_gridSpace[i][j] == GridSpace::empty)
 			{
-				m_tileArray[i][j] = new WallTile(i, j);
+				m_tileArray[i][j] = new WallTile(m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_gridSpace[i][j] == GridSpace::wall)
 			{
-				m_tileArray[i][j] = new WallTile(i, j);
+				m_tileArray[i][j] = new WallTile(m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_gridSpace[i][j] == GridSpace::floor)
 			{
-				m_tileArray[i][j] = new FloorTile(i, j);
+				m_tileArray[i][j] = new FloorTile(m_offsetX, m_offsetY, i, j);
 			}
 		}
 	}

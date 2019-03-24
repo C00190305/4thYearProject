@@ -68,8 +68,10 @@ auto CellularAutomataGenerator::doSimulationStep()
 
 }
 
-void CellularAutomataGenerator::generate(int numberOfSimulationSteps, int birthLimit, int deathLimit, float chanceStartAlive)
+void CellularAutomataGenerator::generate(const int offsetX, const int offsetY, int numberOfSimulationSteps, int birthLimit, int deathLimit, float chanceStartAlive)
 {
+	m_offsetX = offsetX;
+	m_offsetY = offsetY;
 	m_numSimulationSteps = numberOfSimulationSteps;
 	m_birthLimit = birthLimit;
 	m_deathLimit = deathLimit;
@@ -169,12 +171,12 @@ void CellularAutomataGenerator::createTileArray()
 		{
 			if (*grid[i].at(j) == GridSpace::alive)
 			{
-				m_tileVector[i].at(j) = new FloorTile(i, j);
+				m_tileVector[i].at(j) = new FloorTile(m_offsetX, m_offsetY, i, j);
 			}
 
 			else if (*grid[i].at(j) == GridSpace::dead)
 			{
-				m_tileVector[i].at(j) = new WallTile(i, j);
+				m_tileVector[i].at(j) = new WallTile(m_offsetX, m_offsetY, i, j);
 			}
 
 

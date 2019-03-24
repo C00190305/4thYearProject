@@ -9,7 +9,7 @@ class FloorTile : public Tile
 {
 public:
 	FloorTile();
-	FloorTile(int x, int y);
+	FloorTile(int offsetX, int offsetY, int x, int y);
 	void draw(sf::RenderWindow &window);
 private:
 

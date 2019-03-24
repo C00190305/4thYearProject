@@ -20,7 +20,7 @@ public:
 	int getWidth();
 	int getHeight();
 	std::vector<std::vector<int>> getData();
-	void generate();
+	void generate(int offsetX, int offsetY);
 	void createTiles();
 	void draw(sf::RenderWindow &window);
 private:
@@ -29,6 +29,8 @@ private:
 	int m_width;
 	int m_height;
 	int m_index_X, m_index_Y;
+	int m_offsetX;
+	int m_offsetY;
 	std::vector<std::vector<int>> m_dataVector;
 	std::vector <std::vector<Tile*>> m_tileVector;
 };

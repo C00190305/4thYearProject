@@ -26,7 +26,7 @@ class RandomWalkGenerator
 public:
 	RandomWalkGenerator();
 	RandomWalkGenerator(int width, int height);
-	void generate(const int maxWalkers, const float fillPercentage, const float chanceToChangeDirection, const float chanceToDestroyWalker, const float chanceToSpawnWalker);
+	void generate(const int offsetX, const int offsetY, const int maxWalkers, const float fillPercentage, const float chanceToChangeDirection, const float chanceToDestroyWalker, const float chanceToSpawnWalker);
 	void draw(sf::RenderWindow &window);
 	int getWidth();
 	int getHeight();
@@ -47,8 +47,8 @@ private:
 	float CHANCE_TO_SPAWN_NEW_WALKER = 0.2f;
 	sf::Vector2i m_roomSizeWorldUnits;
 
-	int m_guiOffsetX = 20;
-	int m_guiOffsetY = 300;
+	int m_offsetX;
+	int m_offsetY;
 
 	void spawnNewWalker();
 	void destroyWalker();

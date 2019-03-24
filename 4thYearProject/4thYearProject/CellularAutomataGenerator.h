@@ -15,7 +15,7 @@ public:
 	CellularAutomataGenerator();
 	CellularAutomataGenerator(int width, int height, int numberOfSimulationSteps);
 	~CellularAutomataGenerator();
-	void generate(int numberOfSimulationSteps, int birthLimit, int deathLimit, float chanceStartAlive);
+	void generate(const int offsetX, const int offsetY, int numberOfSimulationSteps, int birthLimit, int deathLimit, float chanceStartAlive);
 	void draw(sf::RenderWindow &window);
 
 	int getWidth();
@@ -36,6 +36,9 @@ private:
 	int m_deathLimit;
 	int m_numSimulationSteps;
 	float m_chanceStartAlive;
+
+	int m_offsetX;
+	int m_offsetY;
 	std::vector<std::vector<GridSpace*>> grid;
 	std::vector<std::vector<Tile*>> m_tileVector;
 

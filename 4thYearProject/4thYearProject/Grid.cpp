@@ -35,8 +35,11 @@ Grid::Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* 
 	}
 }
 
-void Grid::generate()
+void Grid::generate(int offsetX, int offsetY)
 {
+
+	m_offsetX = offsetX;
+	m_offsetY = m_offsetY;
 	//Get information from both generators and put into m_dataVector, which has been allocated space for both.
 	for (int i = 0; i < m_pRandomWalkGenerator->getHeight(); i++)
 	{
@@ -63,12 +66,12 @@ void Grid::createTiles()
 		{
 			if (m_dataVector[i].at(j) == 1)
 			{
-				m_tileVector[i].at(j) = new WallTile(i, j);
+				m_tileVector[i].at(j) = new WallTile(m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_dataVector[i].at(j) == 0)
 			{
-				m_tileVector[i].at(j) = new FloorTile(i, j);
+				m_tileVector[i].at(j) = new FloorTile(m_offsetX, m_offsetY, i, j);
 			}
 		}
 	}
