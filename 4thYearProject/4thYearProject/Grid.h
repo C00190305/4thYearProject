@@ -21,7 +21,7 @@ public:
 	int getHeight();
 	std::vector<std::vector<int>> getData();
 	void generate(int offsetX, int offsetY);
-	void createTiles();
+	void createTiles(sf::Texture* floorTexture, sf::Texture* wallTexture);
 	void draw(sf::RenderWindow &window);
 private:
 	CellularAutomataGenerator* m_pCellularAutomataGenerator;

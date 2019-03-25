@@ -7,6 +7,13 @@
 App::App()
 {
 	srand(time(0));
+
+	m_floorTexture = new sf::Texture();
+	m_wallTexture = new sf::Texture();
+	
+	m_floorTexture->loadFromFile("floor.png");
+	m_wallTexture->loadFromFile("wall.png");
+
 	m_RWGenerated = false;
 	m_CAGenerated = false;
 	m_gridGenerated = false;
@@ -115,7 +122,7 @@ void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillP
 		parse_string<float>(ebChanceToChangeDirection->getText().toAnsiString()),
 		parse_string<float>(ebChanceToDestroyWalker->getText().toAnsiString()),
 		parse_string<float>(ebChanceToSpawnNewWalker->getText().toAnsiString()));
-	m_randomWalkGenerator->createTileArray();
+	m_randomWalkGenerator->createTileArray(m_floorTexture, m_wallTexture);
 	m_RWGenerated = true;
 }
 
@@ -129,7 +136,7 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 		parse_string<int>(ebBirthLimit->getText().toAnsiString()),
 		parse_string<int>(ebDeathLimit->getText().toAnsiString()),
 		parse_string<float>(ebChanceStartAlive->getText().toAnsiString()));
-	m_cellularAutomataGenerator->createTileArray();
+	m_cellularAutomataGenerator->createTileArray(m_floorTexture, m_wallTexture);
 	m_CAGenerated = true;
 }
 

@@ -5,6 +5,10 @@ Tile::Tile()
 
 }
 
+Tile::~Tile()
+{
+}
+
 Tile::Tile(const std::string &tileID) : m_ID(tileID)
 {
 

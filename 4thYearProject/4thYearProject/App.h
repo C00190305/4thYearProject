@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <TGUI/TGUI.hpp>
+#include "Thor/Resources.hpp"
 #include <iostream>
 #include <vector>
 
@@ -43,6 +44,8 @@ private:
 	RandomWalkGenerator* m_randomWalkGenerator;
 	CellularAutomataGenerator* m_cellularAutomataGenerator;
 	Grid* m_grid;
+	sf::Texture* m_floorTexture;
+	sf::Texture* m_wallTexture;
 
 	//TGUI members
 	tgui::Gui* m_gui;

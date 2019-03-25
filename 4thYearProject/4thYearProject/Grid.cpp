@@ -58,7 +58,7 @@ void Grid::generate(int offsetX, int offsetY)
 	}
 }
 
-void Grid::createTiles()
+void Grid::createTiles(sf::Texture* floorTexture, sf::Texture* wallTexture)
 {
 	for (int i = 0; i < m_height; i++)
 	{
@@ -66,12 +66,12 @@ void Grid::createTiles()
 		{
 			if (m_dataVector[i].at(j) == 1)
 			{
-				m_tileVector[i].at(j) = new WallTile(m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = new WallTile(wallTexture, m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_dataVector[i].at(j) == 0)
 			{
-				m_tileVector[i].at(j) = new FloorTile(m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = new FloorTile(floorTexture, m_offsetX, m_offsetY, i, j);
 			}
 		}
 	}

@@ -31,7 +31,7 @@ public:
 	int getWidth();
 	int getHeight();
 	std::vector<std::vector<int>> getData();
-	void createTileArray();
+	void createTileArray(sf::Texture* floorTexture, sf::Texture* wallTexture);
 private:
 
 	Tile*** m_tileArray;

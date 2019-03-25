@@ -21,7 +21,7 @@ public:
 	int getWidth();
 	int getHeight();
 	std::vector<std::vector<int>> getData();
-	void createTileArray();
+	void createTileArray(sf::Texture* floorTexture, sf::Texture* wallTexture);
 private:
 	//Cells can be either alive or dead
 	enum GridSpace
@@ -39,11 +39,11 @@ private:
 
 	int m_offsetX;
 	int m_offsetY;
-	std::vector<std::vector<GridSpace*>> grid;
-	std::vector<std::vector<Tile*>> m_tileVector;
+	std::vector<std::vector<std::shared_ptr<GridSpace>>> grid;
+	std::vector<std::vector<std::shared_ptr<Tile>>> m_tileVector;
 
 	auto doSimulationStep();
-	int countAliveNeighbours(std::vector<std::vector<GridSpace*>> grid, int x,  int y);
+	int countAliveNeighbours(std::vector<std::vector<std::shared_ptr<GridSpace>>> grid, int x,  int y);
 	
 };
 

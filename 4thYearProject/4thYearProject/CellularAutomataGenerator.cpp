@@ -28,7 +28,7 @@ CellularAutomataGenerator::CellularAutomataGenerator(int width, int height, int 
 auto CellularAutomataGenerator::doSimulationStep()
 {
 	//Create a new temp grid for storing new information during the simulation step.
-	std::vector<std::vector<GridSpace*>> newGrid;
+	std::vector<std::vector<std::shared_ptr<GridSpace>>> newGrid;
 	newGrid = grid;
 	for (int i = 0; i < m_width; i++)
 	{
@@ -40,12 +40,12 @@ auto CellularAutomataGenerator::doSimulationStep()
 			{
 				if (neighbours < m_deathLimit)
 				{
-					newGrid[i].at(j) = new GridSpace(GridSpace::dead);
+					newGrid[i].at(j) = std::make_shared<GridSpace>(GridSpace::dead);
 				}
 
 				else
 				{
-					newGrid[i].at(j) = new GridSpace(GridSpace::alive);
+					newGrid[i].at(j) = std::make_shared<GridSpace>(GridSpace::alive);
 				}
 			}
 
@@ -53,12 +53,12 @@ auto CellularAutomataGenerator::doSimulationStep()
 			{
 				if (neighbours > m_birthLimit)
 				{
-					newGrid[i].at(j) = new GridSpace(GridSpace::alive);
+					newGrid[i].at(j) = std::make_shared<GridSpace>(GridSpace::alive);
 				}
 
 				else
 				{
-					newGrid[i].at(j) = new GridSpace(GridSpace::dead);
+					newGrid[i].at(j) = std::make_shared<GridSpace>(GridSpace::dead);
 				}
 			}
 		}
@@ -84,12 +84,12 @@ void CellularAutomataGenerator::generate(const int offsetX, const int offsetY, i
 		{
 			if (thor::random(0.0f, 1.0f) <= m_chanceStartAlive)
 			{
-				grid[i].at(j) = new GridSpace(GridSpace::alive);
+				grid[i].at(j) = std::make_shared<GridSpace>(GridSpace::alive);
 			}
 
 			else
 			{
-				grid[i].at(j) = new GridSpace(GridSpace::dead);
+				grid[i].at(j) = std::make_shared<GridSpace>(GridSpace::dead);
 			}
 
 		}
@@ -102,7 +102,7 @@ void CellularAutomataGenerator::generate(const int offsetX, const int offsetY, i
 }
 
 //Counts the neighbours around the cell at index x, y in the 2d vector
-int CellularAutomataGenerator::countAliveNeighbours(std::vector<std::vector<GridSpace*>> grid, int x, int y)
+int CellularAutomataGenerator::countAliveNeighbours(std::vector<std::vector<std::shared_ptr<GridSpace>>> grid, int x, int y)
 {
 	int count = 0;	
 	
@@ -153,17 +153,18 @@ int CellularAutomataGenerator::countAliveNeighbours(std::vector<std::vector<Grid
 	return count;
 }
 
-void CellularAutomataGenerator::createTileArray()
+void CellularAutomataGenerator::createTileArray(sf::Texture* floorTexture, sf::Texture* wallTexture)
 {
-	//if (!m_tileVector.empty())
-	//{
-	//	m_tileVector.clear();
-	//	int size = m_tileVector.size();
-	//	for (int i = 0; i < size; i++)
-	//	{
-	//		m_tileVector[i].clear();
-	//	}
-	//}
+
+	m_tileVector.clear();
+
+	m_tileVector.reserve(m_width);
+	m_tileVector.resize(m_width);
+	for (int i = 0; i < m_width; i++)
+	{
+		m_tileVector.at(i).reserve(m_height);
+		m_tileVector.at(i).resize(m_height);
+	}
 
 	for (int i = 0; i < m_width; i++)
 	{
@@ -171,15 +172,13 @@ void CellularAutomataGenerator::createTileArray()
 		{
 			if (*grid[i].at(j) == GridSpace::alive)
 			{
-				m_tileVector[i].at(j) = new FloorTile(m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = std::make_shared<FloorTile>(floorTexture, m_offsetX, m_offsetY, i, j);
 			}
 
 			else if (*grid[i].at(j) == GridSpace::dead)
 			{
-				m_tileVector[i].at(j) = new WallTile(m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = std::make_shared<WallTile>(wallTexture, m_offsetX, m_offsetY, i, j);
 			}
-
-
 		}
 	}
 }

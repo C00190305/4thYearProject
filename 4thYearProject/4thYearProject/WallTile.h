@@ -9,7 +9,8 @@ class WallTile : public Tile
 {
 public:
 	WallTile();
-	WallTile(int offsetX, int offsetY, int x, int y);
+	~WallTile();
+	WallTile(sf::Texture* texture, int offsetX, int offsetY, int x, int y);
 	void draw(sf::RenderWindow &window);
 private:
 

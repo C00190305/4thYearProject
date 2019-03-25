@@ -145,7 +145,7 @@ int RandomWalkGenerator::numberOfFloorsInGrid()
 	return count;
 }
 
-void RandomWalkGenerator::createTileArray()
+void RandomWalkGenerator::createTileArray(sf::Texture* floorTexture, sf::Texture* wallTexture)
 {
 	for (int i = 0; i < m_width; i++)
 	{
@@ -153,17 +153,17 @@ void RandomWalkGenerator::createTileArray()
 		{
 			if (m_gridSpace[i][j] == GridSpace::empty)
 			{
-				m_tileArray[i][j] = new WallTile(m_offsetX, m_offsetY, i, j);
+				m_tileArray[i][j] = new WallTile(wallTexture, m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_gridSpace[i][j] == GridSpace::wall)
 			{
-				m_tileArray[i][j] = new WallTile(m_offsetX, m_offsetY, i, j);
+				m_tileArray[i][j] = new WallTile(wallTexture, m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_gridSpace[i][j] == GridSpace::floor)
 			{
-				m_tileArray[i][j] = new FloorTile(m_offsetX, m_offsetY, i, j);
+				m_tileArray[i][j] = new FloorTile(floorTexture, m_offsetX, m_offsetY, i, j);
 			}
 		}
 	}
