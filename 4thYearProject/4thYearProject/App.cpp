@@ -84,7 +84,10 @@ void App::run()
 void App::update(sf::Int32 dt)
 {
 
-
+	if (m_RWGenerated == true && m_CAGenerated == true)
+	{
+		m_buttonGenerateGrid->setEnabled(true);
+	}
 }
 
 
@@ -104,6 +107,11 @@ void App::render()
 	if (m_CAGenerated == true)
 	{
 		m_cellularAutomataGenerator->draw(*m_window);
+	}
+
+	if (m_gridGenerated == true)
+	{
+		m_grid->draw(*m_window);
 	}
 
 	m_gui->draw();
@@ -138,6 +146,21 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 		parse_string<float>(ebChanceStartAlive->getText().toAnsiString()));
 	m_cellularAutomataGenerator->createTileArray(m_floorTexture, m_wallTexture);
 	m_CAGenerated = true;
+}
+
+/// <summary>
+/// Generates a combined grid based on input
+/// </summary>
+void App::generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverlapY)
+{
+	m_grid = std::make_shared<Grid>(m_randomWalkGenerator,
+		m_cellularAutomataGenerator,
+		parse_string<int>(ebOverlapX->getText().toAnsiString()),
+		parse_string<int>(ebOverlapY->getText().toAnsiString()));
+	m_grid->generate(700, 300);
+	m_grid->createTiles(m_floorTexture, m_wallTexture);
+	m_gridGenerated = true;
+
 }
 
 /// <summary>
@@ -263,6 +286,40 @@ void App::createUI()
 	m_ebBirthLimit, 
 	m_ebDeathLimit, 
 	m_ebChanceStartAlive);
+
+	//Combination grid
+	m_labelOverlapPoint = tgui::Label::create("Overlap Point (x, y):");
+	m_labelOverlapPoint->setPosition(700, 120);
+	m_gui->add(m_labelOverlapPoint);
+
+	m_ebOverlapX = tgui::EditBox::create();
+	m_ebOverlapX->setSize(60, 15);
+	m_ebOverlapX->setPosition(840, 120);
+	m_ebOverlapX->setText("15");
+	m_gui->add(m_ebOverlapX);
+
+	m_ebOverlapY = tgui::EditBox::create();
+	m_ebOverlapY->setSize(60, 15);
+	m_ebOverlapY->setPosition(910, 120);
+	m_ebOverlapY->setText("15");
+	m_gui->add(m_ebOverlapY);
+	
+	m_labelOverlapSettings = tgui::Label::create("Overlap Settings");
+	m_labelOverlapSettings->setPosition(700, 50);
+	m_gui->add(m_labelOverlapSettings);
+
+	m_buttonGenerateGrid = tgui::Button::create("Generate");
+	m_buttonGenerateGrid->setSize(100, 20);
+	m_buttonGenerateGrid->setPosition(700, 220);
+	m_buttonGenerateGrid->setEnabled(false);
+	m_gui->add(m_buttonGenerateGrid);
+
+	m_buttonGenerateGrid->connect("pressed",
+		&App::generateGrid,
+		this,
+		m_ebOverlapX,
+		m_ebOverlapY);
+
 
 }
 

@@ -9,7 +9,7 @@ Grid::Grid()
 
 //\param randomWalkGenerator : pointer to RandomWalkGenerator
 //\param cellularAutomataGenerator : pointer to CellularAutomataGenerator
-Grid::Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* cellularAutomataGenerator, int overlapX, int overlapY) : m_index_X(overlapX), m_index_Y(overlapY)
+Grid::Grid(std::shared_ptr<RandomWalkGenerator> randomWalkGenerator, std::shared_ptr<CellularAutomataGenerator> cellularAutomataGenerator, int overlapX, int overlapY) : m_index_X(overlapX), m_index_Y(overlapY)
 {
 	//Store pointers to generators
 	m_pCellularAutomataGenerator = cellularAutomataGenerator;
@@ -39,7 +39,7 @@ void Grid::generate(int offsetX, int offsetY)
 {
 
 	m_offsetX = offsetX;
-	m_offsetY = m_offsetY;
+	m_offsetY = offsetY;
 	//Get information from both generators and put into m_dataVector, which has been allocated space for both.
 	for (int i = 0; i < m_pRandomWalkGenerator->getHeight(); i++)
 	{
@@ -60,6 +60,16 @@ void Grid::generate(int offsetX, int offsetY)
 
 void Grid::createTiles(sf::Texture* floorTexture, sf::Texture* wallTexture)
 {
+	m_tileVector.clear();
+
+	m_tileVector.resize(m_height);
+	m_tileVector.reserve(m_height);
+	for (int i = 0; i < m_tileVector.size(); i++)
+	{
+		m_tileVector[i].resize(m_height);
+		m_tileVector[i].reserve(m_height);
+	}
+
 	for (int i = 0; i < m_height; i++)
 	{
 		for (int j = 0; j < m_width; j++)

@@ -38,12 +38,14 @@ private:
 					tgui::EditBox::Ptr ebDeathLimit, 
 					tgui::EditBox::Ptr ebChanceStartAlive);
 
+	void generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverlapY);
+
 	void createUI();
 
 	sf::RenderWindow* m_window;
 	std::shared_ptr<RandomWalkGenerator> m_randomWalkGenerator;
 	std::shared_ptr<CellularAutomataGenerator> m_cellularAutomataGenerator;
-	Grid* m_grid;
+	std::shared_ptr<Grid> m_grid;
 	sf::Texture* m_floorTexture;
 	sf::Texture* m_wallTexture;
 
@@ -79,6 +81,14 @@ private:
 	tgui::Label::Ptr m_labelChanceStartAlive;
 	tgui::Button::Ptr m_buttonGenerateCA;
 
+	//Grid tgui elements
+
+	tgui::EditBox::Ptr m_ebOverlapPoint;
+	tgui::EditBox::Ptr m_ebOverlapX;
+	tgui::EditBox::Ptr m_ebOverlapY;
+	tgui::Label::Ptr m_labelOverlapPoint;
+	tgui::Label::Ptr m_labelOverlapSettings;
+	tgui::Button::Ptr m_buttonGenerateGrid;
 
 	//Generation flags
 	bool m_RWGenerated;

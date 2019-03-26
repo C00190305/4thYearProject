@@ -16,7 +16,7 @@ class Grid
 {
 public:
 	Grid();
-	Grid(RandomWalkGenerator* randomWalkGenerator, CellularAutomataGenerator* cellularAutomataGenerator, int overlapX, int overlapY);
+	Grid(std::shared_ptr<RandomWalkGenerator> randomWalkGenerator, std::shared_ptr<CellularAutomataGenerator> cellularAutomataGenerator, int overlapX, int overlapY);
 	int getWidth();
 	int getHeight();
 	std::vector<std::vector<int>> getData();
@@ -24,8 +24,8 @@ public:
 	void createTiles(sf::Texture* floorTexture, sf::Texture* wallTexture);
 	void draw(sf::RenderWindow &window);
 private:
-	CellularAutomataGenerator* m_pCellularAutomataGenerator;
-	RandomWalkGenerator* m_pRandomWalkGenerator;
+	std::shared_ptr<CellularAutomataGenerator> m_pCellularAutomataGenerator;
+	std::shared_ptr<RandomWalkGenerator> m_pRandomWalkGenerator;
 	int m_width;
 	int m_height;
 	int m_index_X, m_index_Y;
