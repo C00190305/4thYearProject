@@ -41,8 +41,8 @@ private:
 	void createUI();
 
 	sf::RenderWindow* m_window;
-	RandomWalkGenerator* m_randomWalkGenerator;
-	CellularAutomataGenerator* m_cellularAutomataGenerator;
+	std::shared_ptr<RandomWalkGenerator> m_randomWalkGenerator;
+	std::shared_ptr<CellularAutomataGenerator> m_cellularAutomataGenerator;
 	Grid* m_grid;
 	sf::Texture* m_floorTexture;
 	sf::Texture* m_wallTexture;

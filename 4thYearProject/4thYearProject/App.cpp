@@ -116,7 +116,7 @@ void App::render()
 /// </summary>
 void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillPercentage, tgui::EditBox::Ptr ebChanceToChangeDirection, tgui::EditBox::Ptr ebChanceToDestroyWalker, tgui::EditBox::Ptr ebChanceToSpawnNewWalker)
 {
-	m_randomWalkGenerator = new RandomWalkGenerator(30, 30);
+	m_randomWalkGenerator = std::make_shared<RandomWalkGenerator>(30, 30);
 	m_randomWalkGenerator->generate(30, 300, parse_string<int>(ebMaxWalkers->getText().toAnsiString()),
 		parse_string<float>(ebFillPercentage->getText().toAnsiString()),
 		parse_string<float>(ebChanceToChangeDirection->getText().toAnsiString()),
@@ -131,7 +131,7 @@ void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillP
 /// </summary>
 void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr ebBirthLimit, tgui::EditBox::Ptr ebDeathLimit, tgui::EditBox::Ptr ebChanceStartAlive)
 {
-	m_cellularAutomataGenerator = new CellularAutomataGenerator(30, 30, parse_string<int>(ebNumSimulationSteps->getText().toAnsiString()));
+	m_cellularAutomataGenerator = std::make_shared<CellularAutomataGenerator>(30, 30, parse_string<int>(ebNumSimulationSteps->getText().toAnsiString()));
 	m_cellularAutomataGenerator->generate(300, 300, parse_string<int>(ebNumSimulationSteps->getText().toAnsiString()),
 		parse_string<int>(ebBirthLimit->getText().toAnsiString()),
 		parse_string<int>(ebDeathLimit->getText().toAnsiString()),
