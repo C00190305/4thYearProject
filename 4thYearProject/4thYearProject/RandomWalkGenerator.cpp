@@ -21,14 +21,6 @@ RandomWalkGenerator::RandomWalkGenerator(int width, int height) : m_width(width)
 		m_gridSpace[i] = new GridSpace[m_height];
 	}
 
-	//Dynamically allocate 2d array of Tile objects.
-	m_tileArray = new Tile**[m_width];
-	for (int i = 0; i < m_width; i++)
-	{
-		m_tileArray[i] = new Tile*[m_height];
-	}
-
-
 
 	//Initialize gridspace as entirely empty cells.
 	for (int i = 0; i < m_width; i++)
@@ -147,23 +139,33 @@ int RandomWalkGenerator::numberOfFloorsInGrid()
 
 void RandomWalkGenerator::createTileArray(sf::Texture* floorTexture, sf::Texture* wallTexture)
 {
+	m_tileVector.clear();
+
+	m_tileVector.reserve(m_width);
+	m_tileVector.resize(m_width);
+	for (int i = 0; i < m_width; i++)
+	{
+		m_tileVector.at(i).reserve(m_height);
+		m_tileVector.at(i).resize(m_height);
+	}
+
 	for (int i = 0; i < m_width; i++)
 	{
 		for (int j = 0; j < m_height; j++)
 		{
 			if (m_gridSpace[i][j] == GridSpace::empty)
 			{
-				m_tileArray[i][j] = new WallTile(wallTexture, m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = std::make_shared<WallTile>(wallTexture, m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_gridSpace[i][j] == GridSpace::wall)
 			{
-				m_tileArray[i][j] = new WallTile(wallTexture, m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = std::make_shared<WallTile>(wallTexture, m_offsetX, m_offsetY, i, j);
 			}
 
 			if (m_gridSpace[i][j] == GridSpace::floor)
 			{
-				m_tileArray[i][j] = new FloorTile(floorTexture, m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = std::make_shared<WallTile>(floorTexture, m_offsetX, m_offsetY, i, j);
 			}
 		}
 	}
@@ -175,7 +177,7 @@ void RandomWalkGenerator::draw(sf::RenderWindow &window)
 	{
 		for (int j = 0; j < m_height; j++)
 		{
-			m_tileArray[i][j]->draw(window);
+			m_tileVector[i].at(j)->draw(window);
 		}
 	}
 }
