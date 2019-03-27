@@ -172,12 +172,12 @@ void CellularAutomataGenerator::createTileArray(sf::Texture* floorTexture, sf::T
 		{
 			if (*grid[i].at(j) == GridSpace::alive)
 			{
-				m_tileVector[i].at(j) = std::make_shared<FloorTile>(floorTexture, m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = std::make_shared<WallTile>(wallTexture, m_offsetX, m_offsetY, i, j);
 			}
 
 			else if (*grid[i].at(j) == GridSpace::dead)
 			{
-				m_tileVector[i].at(j) = std::make_shared<WallTile>(wallTexture, m_offsetX, m_offsetY, i, j);
+				m_tileVector[i].at(j) = std::make_shared<FloorTile>(floorTexture, m_offsetX, m_offsetY, i, j);
 			}
 		}
 	}

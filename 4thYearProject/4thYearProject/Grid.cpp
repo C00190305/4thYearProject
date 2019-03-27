@@ -49,11 +49,11 @@ void Grid::generate(int offsetX, int offsetY)
 		}
 	}
 
-	for (int i = m_index_Y; i < m_index_Y + m_pCellularAutomataGenerator->getHeight(); i++)
+	for (int i = m_index_X; i < m_index_X + m_pCellularAutomataGenerator->getWidth(); i++)
 	{
-		for (int j = m_index_X; j < m_index_X + m_pCellularAutomataGenerator->getWidth(); j++)
+		for (int j = m_index_Y; j < m_index_Y + m_pCellularAutomataGenerator->getHeight(); j++)
 		{
-			m_dataVector[j].at(i) = m_pCellularAutomataGenerator->getData()[i - m_index_Y].at(j - m_index_X);
+			m_dataVector[i].at(j) = m_pCellularAutomataGenerator->getData()[i - m_index_X].at(j - m_index_Y);
 		}
 	}
 }
