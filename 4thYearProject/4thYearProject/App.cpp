@@ -152,9 +152,9 @@ void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillP
 /// <summary>
 /// Exports the binary data to a text file
 /// </summary>
-void App::exportRW()
+void App::exportRW(tgui::EditBox::Ptr ebFileName)
 {
-	std::ofstream file{ "RandomWalk.txt" };
+	std::ofstream file{ ebFileName->getText().toAnsiString() + ".txt" };
 	for (int i = 0; i < m_randomWalkGenerator->getData().size(); i++)
 	{
 		for (int j = 0; j < m_randomWalkGenerator->getData()[i].size(); j++)
@@ -183,9 +183,9 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 /// <summary>
 /// Exports the binary data to a text file
 /// </summary>
-void App::exportCA()
+void App::exportCA(tgui::EditBox::Ptr ebFileName)
 {
-	std::ofstream file{ "CellularAutomata.txt" };
+	std::ofstream file{ ebFileName->getText().toAnsiString() + ".txt" };
 	for (int i = 0; i < m_cellularAutomataGenerator->getData().size(); i++)
 	{
 		for (int j = 0; j < m_cellularAutomataGenerator->getData()[i].size(); j++)
@@ -215,9 +215,9 @@ void App::generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverl
 /// <summary>
 /// Exports the binary data to a text file
 /// </summary>
-void App::exportGrid()
+void App::exportGrid(tgui::EditBox::Ptr ebFileName)
 {
-	std::ofstream file{ "OverlapGrid.txt" };
+	std::ofstream file{ ebFileName->getText().toAnsiString() + ".txt" };
 	for (int i = 0; i < m_grid->getData().size(); i++)
 	{
 		for (int j = 0; j < m_grid->getData()[i].size(); j++)
@@ -306,7 +306,14 @@ void App::createUI()
 	m_buttonExportRW->setEnabled(false);
 	m_gui->add(m_buttonExportRW);
 
-	m_buttonExportRW->connect("pressed", &App::exportRW, this);
+
+	m_ebRWFileName = tgui::EditBox::create();
+	m_ebRWFileName->setSize(100, 20);
+	m_ebRWFileName->setPosition(210, 245);
+	m_ebRWFileName->setText("RW file name");
+	m_gui->add(m_ebRWFileName);
+
+	m_buttonExportRW->connect("pressed", &App::exportRW, this, m_ebRWFileName);
 	
 
 	//Cellular Automata
@@ -369,7 +376,13 @@ void App::createUI()
 	m_buttonExportCA->setEnabled(false);
 	m_gui->add(m_buttonExportCA);
 
-	m_buttonExportCA->connect("pressed", &App::exportCA, this);
+	m_ebCAFileName = tgui::EditBox::create();
+	m_ebCAFileName->setSize(100, 20);
+	m_ebCAFileName->setPosition(430, 245);
+	m_ebCAFileName->setText("CA file name");
+	m_gui->add(m_ebCAFileName);
+
+	m_buttonExportCA->connect("pressed", &App::exportCA, this, m_ebCAFileName);
 
 	//Combination grid
 	m_labelOverlapPoint = tgui::Label::create("Overlap Point (x, y):");
@@ -410,7 +423,13 @@ void App::createUI()
 	m_buttonExportGrid->setEnabled(false);
 	m_gui->add(m_buttonExportGrid);
 
-	m_buttonExportGrid->connect("pressed", &App::exportGrid, this);
+	m_ebGridFileName = tgui::EditBox::create();
+	m_ebGridFileName->setSize(100, 20);
+	m_ebGridFileName->setPosition(810, 245);
+	m_ebGridFileName->setText("Grid file name");
+	m_gui->add(m_ebGridFileName);
+
+	m_buttonExportGrid->connect("pressed", &App::exportGrid, this, m_ebGridFileName);
 
 
 }

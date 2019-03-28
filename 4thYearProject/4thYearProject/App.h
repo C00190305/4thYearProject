@@ -43,9 +43,9 @@ private:
 
 	void generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverlapY);
 
-	void exportRW();
-	void exportCA();
-	void exportGrid();
+	void exportRW(tgui::EditBox::Ptr ebFileName);
+	void exportCA(tgui::EditBox::Ptr ebFileName);
+	void exportGrid(tgui::EditBox::Ptr ebFileName);
 
 	void createUI();
 
@@ -75,6 +75,9 @@ private:
 	tgui::Label::Ptr m_labelChanceToSpawnNewWalker;
 	tgui::Button::Ptr m_buttonGenerateRW;
 	tgui::Button::Ptr m_buttonExportRW;
+
+	tgui::EditBox::Ptr m_ebRWFileName;
+	tgui::Label::Ptr m_labelRWFileName;
 	
 	//CellularAutomata tgui elements
 	tgui::Label::Ptr m_labelCA;
@@ -90,6 +93,10 @@ private:
 	tgui::Button::Ptr m_buttonGenerateCA;
 	tgui::Button::Ptr m_buttonExportCA;
 
+	tgui::EditBox::Ptr m_ebCAFileName;
+	tgui::Label::Ptr m_labelCAFileName;
+
+
 	//Grid tgui elements
 
 	tgui::EditBox::Ptr m_ebOverlapPoint;
@@ -99,6 +106,9 @@ private:
 	tgui::Label::Ptr m_labelOverlapSettings;
 	tgui::Button::Ptr m_buttonGenerateGrid;
 	tgui::Button::Ptr m_buttonExportGrid;
+
+	tgui::EditBox::Ptr m_ebGridFileName;
+	tgui::Label::Ptr m_labelGridFileName;
 
 	//Generation flags
 	bool m_RWGenerated;
