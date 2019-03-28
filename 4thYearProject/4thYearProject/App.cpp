@@ -185,7 +185,17 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 /// </summary>
 void App::exportCA()
 {
+	std::ofstream file{ "CellularAutomata.txt" };
+	for (int i = 0; i < m_cellularAutomataGenerator->getData().size(); i++)
+	{
+		for (int j = 0; j < m_cellularAutomataGenerator->getData()[i].size(); j++)
+		{
+			file << std::to_string(m_cellularAutomataGenerator->getData()[j].at(i)) + ",";
+		}
+		file << std::endl;
+	}
 
+	file.close();
 }
 
 /// <summary>
@@ -348,6 +358,8 @@ void App::createUI()
 	m_buttonExportCA->setPosition(320, 245);
 	m_buttonExportCA->setEnabled(false);
 	m_gui->add(m_buttonExportCA);
+
+	m_buttonExportCA->connect("pressed", &App::exportCA, this);
 
 	//Combination grid
 	m_labelOverlapPoint = tgui::Label::create("Overlap Point (x, y):");
