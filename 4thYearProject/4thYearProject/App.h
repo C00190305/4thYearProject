@@ -6,7 +6,10 @@
 #include <TGUI/TGUI.hpp>
 #include "Thor/Resources.hpp"
 #include <iostream>
+#include <fstream>
 #include <vector>
+#include <chrono>
+#include <ctime>
 
 #include "RandomWalkGenerator.h"
 #include "CellularAutomataGenerator.h"
@@ -40,6 +43,10 @@ private:
 
 	void generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverlapY);
 
+	void exportRW();
+	void exportCA();
+	void exportGrid();
+
 	void createUI();
 
 	sf::RenderWindow* m_window;
@@ -67,6 +74,7 @@ private:
 	tgui::EditBox::Ptr m_ebChanceToSpawnNewWalker;
 	tgui::Label::Ptr m_labelChanceToSpawnNewWalker;
 	tgui::Button::Ptr m_buttonGenerateRW;
+	tgui::Button::Ptr m_buttonExportRW;
 	
 	//CellularAutomata tgui elements
 	tgui::Label::Ptr m_labelCA;
@@ -80,6 +88,7 @@ private:
 	tgui::EditBox::Ptr m_ebChanceStartAlive;
 	tgui::Label::Ptr m_labelChanceStartAlive;
 	tgui::Button::Ptr m_buttonGenerateCA;
+	tgui::Button::Ptr m_buttonExportCA;
 
 	//Grid tgui elements
 
@@ -89,6 +98,7 @@ private:
 	tgui::Label::Ptr m_labelOverlapPoint;
 	tgui::Label::Ptr m_labelOverlapSettings;
 	tgui::Button::Ptr m_buttonGenerateGrid;
+	tgui::Button::Ptr m_buttonExportGrid;
 
 	//Generation flags
 	bool m_RWGenerated;

@@ -83,11 +83,27 @@ void App::run()
 /// </summary>
 void App::update(sf::Int32 dt)
 {
+	if (m_CAGenerated == true)
+	{
+		m_buttonExportCA->setEnabled(true);
+	}
+
+	if (m_RWGenerated == true)
+	{
+		m_buttonExportRW->setEnabled(true);
+	}
+
+	if (m_gridGenerated == true)
+	{
+		m_buttonExportGrid->setEnabled(true);
+	}
 
 	if (m_RWGenerated == true && m_CAGenerated == true)
 	{
 		m_buttonGenerateGrid->setEnabled(true);
 	}
+
+
 }
 
 
@@ -133,6 +149,23 @@ void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillP
 	m_randomWalkGenerator->createTileArray(m_floorTexture, m_wallTexture);
 	m_RWGenerated = true;
 }
+/// <summary>
+/// Exports the binary data to a text file
+/// </summary>
+void App::exportRW()
+{
+	std::ofstream file{ "RandomWalk.txt" };
+	for (int i = 0; i < m_randomWalkGenerator->getData().size(); i++)
+	{
+		for (int j = 0; j < m_randomWalkGenerator->getData()[i].size(); j++)
+		{
+			file << std::to_string(m_randomWalkGenerator->getData()[j].at(i)) + ",";
+		}
+		file << std::endl;
+	}
+
+	file.close();
+}
 
 /// <summary>
 /// Generates a cellular automata level based on input
@@ -147,6 +180,13 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 	m_cellularAutomataGenerator->createTileArray(m_floorTexture, m_wallTexture);
 	m_CAGenerated = true;
 }
+/// <summary>
+/// Exports the binary data to a text file
+/// </summary>
+void App::exportCA()
+{
+
+}
 
 /// <summary>
 /// Generates a combined grid based on input
@@ -160,6 +200,13 @@ void App::generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverl
 	m_grid->generate(700, 300);
 	m_grid->createTiles(m_floorTexture, m_wallTexture);
 	m_gridGenerated = true;
+
+}
+/// <summary>
+/// Exports the binary data to a text file
+/// </summary>
+void App::exportGrid()
+{
 
 }
 
@@ -233,6 +280,15 @@ void App::createUI()
 	m_ebChanceToDestroyWalker,
 	m_ebChanceToSpawnNewWalker);
 
+	m_buttonExportRW = tgui::Button::create("Export");
+	m_buttonExportRW->setSize(100, 20);
+	m_buttonExportRW->setPosition(100, 245);
+	m_buttonExportRW->setEnabled(false);
+	m_gui->add(m_buttonExportRW);
+
+	m_buttonExportRW->connect("pressed", &App::exportRW, this);
+	
+
 	//Cellular Automata
 	m_labelCA = tgui::Label::create("Cellular Automata Settings");
 	m_labelCA->setPosition(320, 50);
@@ -287,6 +343,12 @@ void App::createUI()
 	m_ebDeathLimit, 
 	m_ebChanceStartAlive);
 
+	m_buttonExportCA = tgui::Button::create("Export");
+	m_buttonExportCA->setSize(100, 20);
+	m_buttonExportCA->setPosition(320, 245);
+	m_buttonExportCA->setEnabled(false);
+	m_gui->add(m_buttonExportCA);
+
 	//Combination grid
 	m_labelOverlapPoint = tgui::Label::create("Overlap Point (x, y):");
 	m_labelOverlapPoint->setPosition(700, 120);
@@ -319,6 +381,12 @@ void App::createUI()
 		this,
 		m_ebOverlapX,
 		m_ebOverlapY);
+
+	m_buttonExportGrid = tgui::Button::create("Export");
+	m_buttonExportGrid->setSize(100, 20);
+	m_buttonExportGrid->setPosition(700, 245);
+	m_buttonExportGrid->setEnabled(false);
+	m_gui->add(m_buttonExportGrid);
 
 
 }
