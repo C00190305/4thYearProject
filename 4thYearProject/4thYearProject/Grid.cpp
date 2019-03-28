@@ -54,6 +54,11 @@ void Grid::generate(int offsetX, int offsetY)
 		for (int j = m_index_Y; j < m_index_Y + m_pCellularAutomataGenerator->getHeight(); j++)
 		{
 			m_dataVector[i].at(j) = m_pCellularAutomataGenerator->getData()[i - m_index_X].at(j - m_index_Y);
+
+			//if (m_pCellularAutomataGenerator->getData()[i - m_index_X].at(j - m_index_Y) == 0 && m_pRandomWalkGenerator->getData()[i].at(j) == 1)
+			//{
+			//	m_dataVector[i].at(j) = 1;
+			//}
 		}
 	}
 }
