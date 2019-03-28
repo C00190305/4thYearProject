@@ -113,7 +113,7 @@ void App::update(sf::Int32 dt)
 /// </summary>
 void App::render()
 {
-	m_window->clear(sf::Color(0, 125, 125, 255));
+	m_window->clear(sf::Color(234, 194, 226, 255));
 
 	if (m_RWGenerated == true)
 	{
@@ -289,7 +289,7 @@ void App::createUI()
 
 	m_buttonGenerateRW = tgui::Button::create("Generate");
 	m_buttonGenerateRW->setSize(100, 20);
-	m_buttonGenerateRW->setPosition(100, 220);
+	m_buttonGenerateRW->setPosition(0, 220);
 	m_gui->add(m_buttonGenerateRW);
 
 	m_buttonGenerateRW->connect("pressed", &App::generateRW,
@@ -302,14 +302,14 @@ void App::createUI()
 
 	m_buttonExportRW = tgui::Button::create("Export");
 	m_buttonExportRW->setSize(100, 20);
-	m_buttonExportRW->setPosition(100, 245);
+	m_buttonExportRW->setPosition(0, 245);
 	m_buttonExportRW->setEnabled(false);
 	m_gui->add(m_buttonExportRW);
 
 
 	m_ebRWFileName = tgui::EditBox::create();
 	m_ebRWFileName->setSize(100, 20);
-	m_ebRWFileName->setPosition(210, 245);
+	m_ebRWFileName->setPosition(110, 245);
 	m_ebRWFileName->setText("RW file name");
 	m_gui->add(m_ebRWFileName);
 
