@@ -217,7 +217,17 @@ void App::generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverl
 /// </summary>
 void App::exportGrid()
 {
+	std::ofstream file{ "OverlapGrid.txt" };
+	for (int i = 0; i < m_grid->getData().size(); i++)
+	{
+		for (int j = 0; j < m_grid->getData()[i].size(); j++)
+		{
+			file << std::to_string(m_grid->getData()[j].at(i)) + ",";
+		}
+		file << std::endl;
+	}
 
+	file.close();
 }
 
 /// <summary>
@@ -399,6 +409,8 @@ void App::createUI()
 	m_buttonExportGrid->setPosition(700, 245);
 	m_buttonExportGrid->setEnabled(false);
 	m_gui->add(m_buttonExportGrid);
+
+	m_buttonExportGrid->connect("pressed", &App::exportGrid, this);
 
 
 }
