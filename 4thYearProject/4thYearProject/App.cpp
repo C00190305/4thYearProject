@@ -6,19 +6,28 @@
 
 App::App()
 {
+	//Seed random based on time
 	srand(time(0));
 
+	//Textures for flightweighting
 	m_floorTexture = new sf::Texture();
 	m_wallTexture = new sf::Texture();
 	
 	m_floorTexture->loadFromFile("floor.png");
 	m_wallTexture->loadFromFile("wall.png");
 
+	//Generation flags
 	m_RWGenerated = false;
 	m_CAGenerated = false;
 	m_gridGenerated = false;
+	
+	//Render window 
 	m_window = new sf::RenderWindow(sf::VideoMode(1280, 720), "4th Year Project Simon Dowling C00190305");
+
+	//TGUI
 	m_gui = new tgui::Gui(*m_window);
+
+	//Create UI
 	createUI();
 }
 
@@ -60,6 +69,7 @@ void App::run()
 				m_window->close();
 			}
 
+			//Update gui elements using sfml event
 			m_gui->handleEvent(event);
 		}
 
@@ -72,6 +82,7 @@ void App::run()
 			timeSinceLastUpdate = sf::Time::Zero;
 		}
 
+		//Render call
 		render();
 	}
 }
@@ -138,6 +149,11 @@ void App::render()
 /// <summary>
 /// Generates a random walk level based on input
 /// </summary>
+/// \param ebMaxWalkers : tgui editbox
+/// \param ebChanceToChangeDirection : tgui editbox
+/// \param ebChanceToDestroyWalker : tgui editbox
+/// \param ebChanceToSpawnNewWalker : tgui editbox
+/// \param ebFillPercentage : tgui editbox
 void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillPercentage, tgui::EditBox::Ptr ebChanceToChangeDirection, tgui::EditBox::Ptr ebChanceToDestroyWalker, tgui::EditBox::Ptr ebChanceToSpawnNewWalker)
 {
 	m_randomWalkGenerator = std::make_shared<RandomWalkGenerator>(30, 30);
@@ -152,24 +168,33 @@ void App::generateRW(tgui::EditBox::Ptr ebMaxWalkers, tgui::EditBox::Ptr ebFillP
 /// <summary>
 /// Exports the binary data to a text file
 /// </summary>
+/// \param ebFileName : tgui editbox
 void App::exportRW(tgui::EditBox::Ptr ebFileName)
 {
+	//Open file and give it a filename
 	std::ofstream file{ ebFileName->getText().toAnsiString() + ".txt" };
 	for (int i = 0; i < m_randomWalkGenerator->getData().size(); i++)
 	{
 		for (int j = 0; j < m_randomWalkGenerator->getData()[i].size(); j++)
 		{
+			//Write line
 			file << std::to_string(m_randomWalkGenerator->getData()[j].at(i)) + ",";
 		}
+		//End line in document
 		file << std::endl;
 	}
 
+	//Close file when writing is finished
 	file.close();
 }
 
 /// <summary>
 /// Generates a cellular automata level based on input
 /// </summary>
+/// \param ebNumSimulationSteps : tgui editbot
+/// \param ebBirthLimit : tgui editbot
+/// \param ebDeathLimit : tgui editbot
+/// \param ebChanceStartAlive : tgui editbot
 void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr ebBirthLimit, tgui::EditBox::Ptr ebDeathLimit, tgui::EditBox::Ptr ebChanceStartAlive)
 {
 	m_cellularAutomataGenerator = std::make_shared<CellularAutomataGenerator>(30, 30, parse_string<int>(ebNumSimulationSteps->getText().toAnsiString()));
@@ -185,22 +210,28 @@ void App::generateCA(tgui::EditBox::Ptr ebNumSimulationSteps, tgui::EditBox::Ptr
 /// </summary>
 void App::exportCA(tgui::EditBox::Ptr ebFileName)
 {
+	//Open file and give filename
 	std::ofstream file{ ebFileName->getText().toAnsiString() + ".txt" };
 	for (int i = 0; i < m_cellularAutomataGenerator->getData().size(); i++)
 	{
 		for (int j = 0; j < m_cellularAutomataGenerator->getData()[i].size(); j++)
 		{
+			//Write data to line
 			file << std::to_string(m_cellularAutomataGenerator->getData()[j].at(i)) + ",";
 		}
+		//End line in document
 		file << std::endl;
 	}
 
+	//Close file when writing is finished
 	file.close();
 }
 
 /// <summary>
 /// Generates a combined grid based on input
 /// </summary>
+/// \param ebOverlapX: tgui editbot
+/// \param ebOverlapY : tgui editbot
 void App::generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverlapY)
 {
 	m_grid = std::make_shared<Grid>(m_randomWalkGenerator,
@@ -217,16 +248,21 @@ void App::generateGrid(tgui::EditBox::Ptr ebOverlapX, tgui::EditBox::Ptr ebOverl
 /// </summary>
 void App::exportGrid(tgui::EditBox::Ptr ebFileName)
 {
+	//Open file and give filename
 	std::ofstream file{ ebFileName->getText().toAnsiString() + ".txt" };
 	for (int i = 0; i < m_grid->getData().size(); i++)
 	{
 		for (int j = 0; j < m_grid->getData()[i].size(); j++)
 		{
+			//Write line of data
 			file << std::to_string(m_grid->getData()[j].at(i)) + ",";
 		}
+
+		//end line in document
 		file << std::endl;
 	}
 
+	//close file when finished writing
 	file.close();
 }
 
@@ -235,7 +271,7 @@ void App::exportGrid(tgui::EditBox::Ptr ebFileName)
 /// </summary>
 void App::createUI()
 {
-	//Random walk
+	//Random walk elements
 	m_labelRW = tgui::Label::create("Random Walk Settings");
 	m_labelRW->setPosition(0, 50);
 	m_labelRW->setSize(200, 20);
@@ -316,7 +352,7 @@ void App::createUI()
 	m_buttonExportRW->connect("pressed", &App::exportRW, this, m_ebRWFileName);
 	
 
-	//Cellular Automata
+	//Cellular Automata elements
 	m_labelCA = tgui::Label::create("Cellular Automata Settings");
 	m_labelCA->setPosition(320, 50);
 	m_labelCA->setSize(200, 20);
@@ -384,7 +420,7 @@ void App::createUI()
 
 	m_buttonExportCA->connect("pressed", &App::exportCA, this, m_ebCAFileName);
 
-	//Combination grid
+	//Combination grid elements
 	m_labelOverlapPoint = tgui::Label::create("Overlap Point (x, y):");
 	m_labelOverlapPoint->setPosition(700, 120);
 	m_gui->add(m_labelOverlapPoint);

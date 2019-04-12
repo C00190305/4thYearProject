@@ -7,6 +7,7 @@ RandomWalker::RandomWalker()
 
 RandomWalker::RandomWalker(sf::Vector2i initialPos) : m_pos(initialPos)
 {
+	//Initialize direction to be a random direction
 	m_direction = getNewDirection();
 }
 
@@ -48,6 +49,7 @@ sf::Vector2i RandomWalker::getPosition()
 
 void RandomWalker::move()
 {
+	//move integer position
 	m_pos.x += (m_direction.x);
 	m_pos.y += (m_direction.y);
 }

@@ -34,8 +34,10 @@ RandomWalkGenerator::RandomWalkGenerator(int width, int height) : m_width(width)
 
 void RandomWalkGenerator::generate(const int offsetX, const int offsetY, const int maxWalkers, const float fillPercentage, const float chanceToChangeDirection, const float chanceToDestroyWalker, const float chanceToSpawnWalker)
 {
+	//Number of times to automatically break of out loop
 	int iterations = 0;
 
+	//Assign variables to user-defined input
 	m_offsetX = offsetX;
 	m_offsetY = offsetY;
 	MAX_WALKERS = maxWalkers;
@@ -45,8 +47,14 @@ void RandomWalkGenerator::generate(const int offsetX, const int offsetY, const i
 	CHANCE_TO_SPAWN_NEW_WALKER = chanceToSpawnWalker;
 	
 
-	//main loop
-	while(iterations < 2000)
+	//Main loop
+	//Each walker places a floor at its current position
+	//Has a chance to be destroyed
+	//Has a chance to spawn a new walker
+	//Has a chance to change its direction
+	//Moves
+	//Repeat until max iterations reached or maximum defined fill percentage has been reached
+	while(iterations < 5000)
 	{
 		//Create floor at the position of each walker.
 		for (auto walker : m_walkers)
@@ -68,15 +76,17 @@ void RandomWalkGenerator::generate(const int offsetX, const int offsetY, const i
 			walker->move();
 		}
 
+		//Check if the number of floors exceeds the fill percentage
 		if ((float)(numberOfFloorsInGrid() / (float)(m_width * m_height)) > FILL_PERCENTAGE)
 		{
-			iterations = 2000;
+			iterations = 5000;
 		}
 
 		iterations++;
 	}
 }
 
+//Destroy a walker by removing it from the list
 void RandomWalkGenerator::destroyWalker()
 {
 	std::list<RandomWalker*>::iterator iter;
@@ -106,7 +116,7 @@ void RandomWalkGenerator::spawnNewWalker()
 		}
 	}
 }
-
+//Change directions of walkers
 void RandomWalkGenerator::calculateNewDirection()
 {
 	std::list<RandomWalker*>::iterator iter;
@@ -121,6 +131,7 @@ void RandomWalkGenerator::calculateNewDirection()
 	}
 }
 
+//Count the number of floors in the 2d vector and return it
 int RandomWalkGenerator::numberOfFloorsInGrid()
 {
 	int count = 0;
@@ -137,8 +148,10 @@ int RandomWalkGenerator::numberOfFloorsInGrid()
 	return count;
 }
 
+//Create tiles
 void RandomWalkGenerator::createTileArray(sf::Texture* floorTexture, sf::Texture* wallTexture)
 {
+	//Free up memory from old tiles
 	m_tileVector.clear();
 
 	m_tileVector.reserve(m_width);
@@ -192,8 +205,10 @@ int RandomWalkGenerator::getWidth()
 	return m_width;
 }
 
+//Function to get the data as a binary format in a 2D vector
 std::vector<std::vector<int>> RandomWalkGenerator::getData()
 {
+	
 	std::vector<std::vector<int>> data;
 	data.reserve(m_height);
 	data.resize(m_height);

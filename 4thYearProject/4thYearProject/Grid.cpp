@@ -37,9 +37,10 @@ Grid::Grid(std::shared_ptr<RandomWalkGenerator> randomWalkGenerator, std::shared
 
 void Grid::generate(int offsetX, int offsetY)
 {
-
+	//Assign variables based on user-defined input
 	m_offsetX = offsetX;
 	m_offsetY = offsetY;
+
 	//Get information from both generators and put into m_dataVector, which has been allocated space for both.
 	for (int i = 0; i < m_pRandomWalkGenerator->getHeight(); i++)
 	{

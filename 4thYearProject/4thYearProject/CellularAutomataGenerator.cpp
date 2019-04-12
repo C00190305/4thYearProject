@@ -6,7 +6,7 @@ CellularAutomataGenerator::CellularAutomataGenerator()
 
 CellularAutomataGenerator::CellularAutomataGenerator(int width, int height, int numberOfSimulationSteps) : m_width(width), m_height(height), m_numSimulationSteps(numberOfSimulationSteps)
 {
-	//Initialize vector
+	//Initialize vector 
 
 	m_chanceStartAlive = 0.40f;
 	m_birthLimit = 4;
@@ -70,6 +70,7 @@ auto CellularAutomataGenerator::doSimulationStep()
 
 void CellularAutomataGenerator::generate(const int offsetX, const int offsetY, int numberOfSimulationSteps, int birthLimit, int deathLimit, float chanceStartAlive)
 {
+	//Assign variables to user-defined data
 	m_offsetX = offsetX;
 	m_offsetY = offsetY;
 	m_numSimulationSteps = numberOfSimulationSteps;
@@ -102,6 +103,9 @@ void CellularAutomataGenerator::generate(const int offsetX, const int offsetY, i
 }
 
 //Counts the neighbours around the cell at index x, y in the 2d vector
+//\param grid : 2D vector of gridspaces
+//\param x : current index X
+//\param y : current index Y
 int CellularAutomataGenerator::countAliveNeighbours(std::vector<std::vector<std::shared_ptr<GridSpace>>> grid, int x, int y)
 {
 	int count = 0;	
@@ -156,6 +160,7 @@ int CellularAutomataGenerator::countAliveNeighbours(std::vector<std::vector<std:
 void CellularAutomataGenerator::createTileArray(sf::Texture* floorTexture, sf::Texture* wallTexture)
 {
 
+	//Clear old data from vector and free memory
 	m_tileVector.clear();
 
 	m_tileVector.reserve(m_width);
@@ -166,6 +171,7 @@ void CellularAutomataGenerator::createTileArray(sf::Texture* floorTexture, sf::T
 		m_tileVector.at(i).resize(m_height);
 	}
 
+	//Create tiles based on generated data
 	for (int i = 0; i < m_width; i++)
 	{
 		for (int j = 0; j < m_height; j++)
@@ -208,6 +214,7 @@ int CellularAutomataGenerator::getHeight()
 	return m_height;
 }
 
+//Writes data to binary format and returns in a 2D vector
 std::vector<std::vector<int>> CellularAutomataGenerator::getData()
 {
 	std::vector<std::vector<int>> data;

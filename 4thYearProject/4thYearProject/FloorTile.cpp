@@ -5,7 +5,6 @@ FloorTile::~FloorTile()
 //X and Y positions
 FloorTile::FloorTile(sf::Texture* texture, int offsetX, int offsetY, int x, int y)
 {
-	//m_texture.loadFromFile("floor.png");
 	m_texture = texture;
 	m_sprite.setTexture(*m_texture);
 	m_pos = sf::Vector2f(offsetX + (x * 8), offsetY + (y * 8));
